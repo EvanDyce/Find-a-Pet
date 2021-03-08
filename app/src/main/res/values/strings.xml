@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">PetTinder</string>
+
+    <string name="rangeTextView">Max Range</string>
+    <string name="selectProvincePrompt">Select Province</string>
+    <string name="search">Search</string>
+
+    <string-array name="provinces_list">
+        <item>BC</item>
+        <item>AB</item>
+        <item>SK</item>
+        <item>MN</item>
+        <item>ON</item>
+        <item>QC</item>
+        <item>NL</item>
+        <item>NS</item>
+        <item>NB</item>
+        <item>PE</item>
+        <item>YT</item>
+        <item>NT</item>
+        <item>NU</item>
+    </string-array>
+
+    <string-array name="province_list_full">
+        <item>British Columbia</item>
+        <item>Alberta</item>
+        <item>Saskatchewan</item>
+        <item>Manitoba</item>
+        <item>Ontario</item>
+        <item>Quebec</item>
+        <item>Newfoundland and Labrador</item>
+        <item>Nova Scotia</item>
+        <item>New Brunswick</item>
+        <item>P.E.I.</item>
+        <item>Yukon</item>
+        <item>Northwest Territories</item>
+        <item>Nunavat</item>
+    </string-array>
+</resources>
