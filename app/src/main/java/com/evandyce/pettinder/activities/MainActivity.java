@@ -1,4 +1,4 @@
-package com.evandyce.pettinder;
+package com.evandyce.pettinder.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.evandyce.pettinder.R;
+import com.evandyce.pettinder.fragments.FavoritesFragment;
+import com.evandyce.pettinder.fragments.HomeFragment;
+import com.evandyce.pettinder.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {

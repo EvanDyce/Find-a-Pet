@@ -1,4 +1,4 @@
-package com.evandyce.pettinder;
+package com.evandyce.pettinder.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,6 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+
+import com.evandyce.pettinder.classes.APIConnector;
+import com.evandyce.pettinder.R;
 
 public class SearchFragment extends Fragment {
 

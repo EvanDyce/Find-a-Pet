@@ -1,6 +1,5 @@
-package com.evandyce.pettinder;
+package com.evandyce.pettinder.classes;
 
-import android.app.DownloadManager;
 import android.content.Context;
 
 import org.json.JSONArray;
@@ -9,7 +8,6 @@ import org.json.JSONObject;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -34,6 +32,7 @@ public class APIConnector {
 
     public APIConnector(Context context) {
         this.context = context;
+        generateNewToken();
     }
 
     // interface for callback functions
@@ -84,8 +83,9 @@ public class APIConnector {
             public void onErrorResponse(VolleyError error) {
                 // if the error is because the token is unauthorized then it passes the message back and generates a new token
                 if(error.networkResponse.statusCode == 401) {
-                    volleyResponseListener.onError("Your token has been updated. Please try again");
+                    volleyResponseListener.onError("invalid");
                     generateNewToken();
+                    getDataFromAPI(city, range, volleyResponseListener);
                 }
                 // city and province do not exist in db
                 else if (error.networkResponse.statusCode == 400) {
