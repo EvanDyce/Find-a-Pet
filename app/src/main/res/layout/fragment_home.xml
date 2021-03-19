@@ -11,4 +11,11 @@
         android:textSize="30sp"
         android:layout_centerInParent="true"/>
 
+    <Button
+        android:id="@+id/load_next_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/search"/>
+
 </RelativeLayout>

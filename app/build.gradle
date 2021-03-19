@@ -37,4 +37,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'link.fls:swipestack:0.3.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.google.code.gson:gson:2.7'
+    implementation 'com.mindorks.android:placeholderview:1.0.3'
+    implementation 'jp.wasabeef:glide-transformations:2.0.2'
+    annotationProcessor 'com.mindorks.android:placeholderview-compiler:1.0.3'
 }
