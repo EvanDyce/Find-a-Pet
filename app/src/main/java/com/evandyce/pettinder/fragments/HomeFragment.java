@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.evandyce.pettinder.R;
 import com.evandyce.pettinder.cards.CardsActivity;
+import com.evandyce.pettinder.classes.APIConnector;
 
 public class HomeFragment extends Fragment {
 

@@ -2,6 +2,7 @@ package com.evandyce.pettinder.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.evandyce.pettinder.cards.CardsActivity;
 import com.evandyce.pettinder.classes.APIConnector;
 import com.evandyce.pettinder.R;
 
@@ -64,15 +66,16 @@ public class SearchFragment extends Fragment {
                 // does the actual query
                 // uses APIConnection object and passes string from text fields and spinner
                 // VolleyResponseListener is for callbacks and when response is received the methods are called with params from APIConnector implementation
-                db.getDataFromAPI(et_cityName.getText().toString(), et_range.getText().toString(), new APIConnector.VolleyResponseListener() {
+                db.getDataFromAPI(et_cityName.getText().toString(), et_range.getText().toString(), spinner_provinces.getSelectedItem().toString(), new APIConnector.VolleyResponseListener() {
                     @Override
                     public void onError(String message) {
                         Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
-                    public void onResponse(Object response) {
-                        Toast.makeText(mActivity, (String)response, Toast.LENGTH_SHORT).show();
+                    public void onResponse() {
+                        Intent intent = new Intent(v.getContext(), CardsActivity.class);
+                        v.getContext().startActivity(intent);
                     }
                 });
                 //Toast.makeText(getActivity(), "This is the button toast", Toast.LENGTH_SHORT).show();

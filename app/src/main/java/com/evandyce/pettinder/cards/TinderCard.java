@@ -62,8 +62,6 @@ public class TinderCard {
                 new RoundedCornersTransformation(
                         mContext, Utils.dpToPx(7), 0,
                         RoundedCornersTransformation.CornerType.TOP));
-
-        System.out.println(mDog.getImageUrl());
         Glide.with(mContext).load(mDog.getImageUrl())
                 .bitmapTransform(multi)
                 .into(profileImageView);

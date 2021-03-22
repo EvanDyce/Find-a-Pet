@@ -4,7 +4,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Dog {
-//    private String email;
+    private String email;
+    private String petfinderURL;
 
     @SerializedName("name")
     @Expose
@@ -20,15 +21,35 @@ public class Dog {
 
     @SerializedName("age")
     @Expose
-    private Integer age;
+    private String age;
 
-//    public Dog(String name, String location, String email, String imageUrl, String age) {
-//        this.name = name;
-//        this.location = location;
-//        this.email = email;
-//        this.imageUrl = imageUrl;
-//        this.age = age;
-//    }
+
+    public Dog(){}
+
+    public Dog(String name, String location, String email, String age, String imageUrl, String petfinderURL) {
+        this.name = name;
+        this.location = location;
+        this.email = email;
+        this.age = age;
+        this.imageUrl = imageUrl;
+        this.petfinderURL = petfinderURL;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPetfinderURL() {
+        return petfinderURL;
+    }
+
+    public void setPetfinderURL(String petfinderURL) {
+        this.petfinderURL = petfinderURL;
+    }
 
     public String getName() {
         return name;
@@ -46,27 +67,19 @@ public class Dog {
         this.location = location;
     }
 
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
-
     public String getImageUrl() {
-        return this.imageUrl;
+        return imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
-    public Integer getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(String age) {
         this.age = age;
     }
 }

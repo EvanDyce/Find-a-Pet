@@ -28,6 +28,8 @@ public class Utils {
 
     private static final String TAG = "Utils";
 
+    // makes the list of dogs from the profiles.json file and returns it
+    // used in CardsActivity class
     public static List<Dog> loadDogs(Context context) {
         try {
             GsonBuilder builder = new GsonBuilder();
@@ -38,7 +40,6 @@ public class Utils {
                 Dog dog = gson.fromJson(array.getString(i), Dog.class);
                 DogList.add(dog);
             }
-            System.out.println(DogList);
             return DogList;
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,6 +47,7 @@ public class Utils {
         }
     }
 
+    // loads json from profiles.json
     private static String loadJSONFromAsset(Context context, String jsonFileName) {
         String json = null;
         InputStream is = null;
@@ -65,6 +67,7 @@ public class Utils {
         return json;
     }
 
+    // gets the size of the screen
     public static Point getDisplaySize(WindowManager windowManager) {
         try {
             if (Build.VERSION.SDK_INT > 16) {
