@@ -1,4 +1,4 @@
-package com.evandyce.pettinder.classes;
+package com.evandyce.pettinder.api;
 
 import android.content.Context;
 
@@ -11,7 +11,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.gson.JsonObject;
+import com.evandyce.pettinder.cards.Dog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -154,6 +154,7 @@ public class APIConnector {
 
     /*
     Adds parameters to the base request URL depending on the values passed to it
+    Todo: add support for different animal types from spinner
      */
     private String paramaterizeBaseURL(String city, String range, String prov) {
 

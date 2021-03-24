@@ -1,4 +1,4 @@
-package com.evandyce.pettinder.fragments;
+package com.evandyce.pettinder.main.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.evandyce.pettinder.cards.CardsActivity;
-import com.evandyce.pettinder.classes.APIConnector;
+import com.evandyce.pettinder.api.APIConnector;
 import com.evandyce.pettinder.R;
 
 public class SearchFragment extends Fragment {
@@ -26,6 +26,8 @@ public class SearchFragment extends Fragment {
     // declaring instance variables
     protected APIConnector db;
     protected FragmentActivity mActivity;
+
+    //Todo: add new spinner for filtering animal types. Dogs, Cats, Dogs and Cats, Other
 
     // called on the creation
     // makes the fragment fill to container in the activity
@@ -78,7 +80,6 @@ public class SearchFragment extends Fragment {
                         v.getContext().startActivity(intent);
                     }
                 });
-                //Toast.makeText(getActivity(), "This is the button toast", Toast.LENGTH_SHORT).show();
             }
 
         });

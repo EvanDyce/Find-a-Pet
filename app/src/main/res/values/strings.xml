@@ -1,25 +1,13 @@
 <resources>
     <string name="app_name">PetTinder</string>
 
-    <string name="rangeTextView">Max Range</string>
+    <string name="rangeTextView">Search Radius</string>
     <string name="selectProvincePrompt">Select Province</string>
     <string name="search">Search</string>
-
-    <string-array name="provinces_list">
-        <item>BC</item>
-        <item>AB</item>
-        <item>SK</item>
-        <item>MN</item>
-        <item>ON</item>
-        <item>QC</item>
-        <item>NL</item>
-        <item>NS</item>
-        <item>NB</item>
-        <item>PE</item>
-        <item>YT</item>
-        <item>NT</item>
-        <item>NU</item>
-    </string-array>
+    <string name="enter_city_name">Enter City Name</string>
+    <string name="km">km</string>
+    <string name="animal_type">Animal Type</string>
+    <string name="age">Age</string>
 
     <string-array name="province_list_full">
         <item>British Columbia</item>
@@ -35,5 +23,30 @@
         <item>Yukon</item>
         <item>Northwest Territories</item>
         <item>Nunavat</item>
+    </string-array>
+
+    <string-array name="distances">
+        <item>10km</item>
+        <item>50km</item>
+        <item>100km</item>
+        <item>250km</item>
+        <item>500km</item>
+    </string-array>
+
+    <string-array name="animal_type">
+        <item>Any</item>
+        <item>Dog</item>
+        <item>Cat</item>
+        <item>Horse</item>
+        <item>Birds</item>
+        <item>Barnyard</item>
+    </string-array>
+
+    <string-array name="animal_ages">
+        <item>Any</item>
+        <item>Baby</item>
+        <item>Young</item>
+        <item>Adult</item>
+        <item>Senior</item>
     </string-array>
 </resources>

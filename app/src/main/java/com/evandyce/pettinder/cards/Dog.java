@@ -1,4 +1,4 @@
-package com.evandyce.pettinder.classes;
+package com.evandyce.pettinder.cards;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

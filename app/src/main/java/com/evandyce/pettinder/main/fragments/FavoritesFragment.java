@@ -1,4 +1,4 @@
-package com.evandyce.pettinder.fragments;
+package com.evandyce.pettinder.main.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

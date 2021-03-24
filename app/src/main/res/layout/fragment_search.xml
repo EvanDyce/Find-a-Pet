@@ -11,73 +11,172 @@
         android:layout_height="wrap_content"
         android:orientation = "vertical"
         android:layout_alignParentTop="true"
+        android:paddingTop="12dp"
         android:divider="@android:color/black"
-        android:showDividers="middle"
-        android:dividerPadding="10dp"
+        android:showDividers="none"
+        android:dividerPadding="25dp"
         >
 
         <EditText
             android:id="@+id/et_enterCityName"
-            android:layout_width="match_parent"
+            android:layout_width="370dp"
             android:layout_height="50dp"
-            android:hint="Enter City Name"
-            android:background="@drawable/edit_text_border"
+            android:layout_gravity="center"
+            android:hint="@string/enter_city_name"
+            android:drawableStart="@drawable/ic_city"
+            android:drawablePadding="10dp"
+            android:background="@drawable/custom_input"
             />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="15dp"
-            >
-
-            <TextView
-                android:id="@+id/tv_enterMaxRangePrompt"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/rangeTextView"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:layout_marginRight="10dp"/>
-
-            <EditText
-                android:id="@+id/et_maxRange"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:hint="km"
-                android:background="@android:color/transparent"/>
-
-
-        </LinearLayout>
-
+<!--    Select Province text and Spinner-->
         <LinearLayout
             android:id="@+id/searchFragment_lowerLinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:paddingTop="15dp">
+
             <TextView
-                android:id="@+id/tv_selectProvincePrompt"
+                android:id="@+id/tv_selectProvince"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="20sp"
+                android:layout_height="37dp"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:text="@string/selectProvincePrompt"
-                android:layout_marginRight="10dp"
-                android:gravity="center"/>
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/dark_grey"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
             <Spinner
                 android:id="@+id/spinner_provinceList"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:entries="@array/province_list_full"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:gravity="center"
                 />
         </LinearLayout>
 
+<!--     Search Radius and Text Input -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="15dp"
+            android:dividerPadding="10dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_enterMaxRangePrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="37dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/rangeTextView"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/dark_grey"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
+            <EditText
+                android:id="@+id/et_maxRange"
+                android:layout_width="95dp"
+                android:layout_height="37dp"
+                android:layout_gravity="center"
+                android:background="@drawable/custom_input"
+                android:hint="@string/km"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+<!--     Select Animal Type -->
+        <LinearLayout
+            android:id="@+id/searchFragment_animalTypeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="15dp">
+
+            <TextView
+                android:id="@+id/tv_selectAnimalType"
+                android:layout_width="wrap_content"
+                android:layout_height="37dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/animal_type"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/dark_grey"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
+            <Spinner
+                android:id="@+id/spinner_animalTypes"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:entries="@array/animal_type"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:gravity="center"
+                />
+        </LinearLayout>
+
+<!--     Animal Age Spinner-->
+        <LinearLayout
+            android:id="@+id/searchFragment_animalAgeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="15dp">
+
+            <TextView
+                android:id="@+id/tv_selectAnimalAge"
+                android:layout_width="wrap_content"
+                android:layout_height="37dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/age"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/dark_grey"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
+            <Spinner
+                android:id="@+id/spinner_animalAges"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:entries="@array/animal_ages"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:gravity="center"
+                />
+        </LinearLayout>
+
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="45dp"/>
+
+        <Button
+            android:id="@+id/searchFragment_searchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="@string/search"
+            android:layout_gravity="center"
+            android:textAlignment="center"/>
+
     </LinearLayout>
 
-    <Button
-        android:id="@+id/searchFragment_searchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_centerInParent="true"
-        android:text="@string/search"/>
 </RelativeLayout>

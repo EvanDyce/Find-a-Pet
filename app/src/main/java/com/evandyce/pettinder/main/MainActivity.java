@@ -1,4 +1,4 @@
-package com.evandyce.pettinder.activities;
+package com.evandyce.pettinder.main;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,10 +8,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.evandyce.pettinder.R;
-import com.evandyce.pettinder.fragments.FavoritesFragment;
-import com.evandyce.pettinder.fragments.HomeFragment;
-import com.evandyce.pettinder.fragments.SearchFragment;
+import com.evandyce.pettinder.main.fragments.FavoritesFragment;
+import com.evandyce.pettinder.main.fragments.HomeFragment;
+import com.evandyce.pettinder.main.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,9 +23,10 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+        bottomNav.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_UNLABELED);
         // makes the default fragment the home one
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new HomeFragment()).commit();
+                new SearchFragment()).commit();
     }
 
     /*
@@ -37,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
                     Fragment selectedFragment = null;
 
                     switch (item.getItemId()) {
-                        case R.id.nav_home:
-                            selectedFragment = new HomeFragment();
-                            break;
+//                        case R.id.nav_home:
+//                            selectedFragment = new HomeFragment();
+//                            break;
                         case R.id.nav_favorites:
                             selectedFragment = new FavoritesFragment();
                             break;

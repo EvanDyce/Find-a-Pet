@@ -1,4 +1,4 @@
-package com.evandyce.pettinder.classes;
+package com.evandyce.pettinder.api;
 
 import android.content.Context;
 

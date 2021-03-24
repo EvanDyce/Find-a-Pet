@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
+import com.evandyce.pettinder.api.APIConnector;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;
@@ -24,8 +25,9 @@ import com.mindorks.placeholderview.annotations.swipe.SwipeView;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
-import com.evandyce.pettinder.classes.Dog;
 import com.evandyce.pettinder.R;
+
+import java.util.List;
 
 /**
  * Created by janisharali on 19/08/16.
@@ -33,6 +35,7 @@ import com.evandyce.pettinder.R;
 @NonReusable
 @Layout(R.layout.tinder_card_view)
 public class TinderCard {
+
     @View(R.id.profileImageView)
     ImageView profileImageView;
 
@@ -57,6 +60,8 @@ public class TinderCard {
 
     @Resolve
     public void onResolved(){
+        Thread thread = new Thread();
+        thread.run();
         MultiTransformation multi = new MultiTransformation(
                 new BlurTransformation(mContext, 30),
                 new RoundedCornersTransformation(

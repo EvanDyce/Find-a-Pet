@@ -10,13 +10,9 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.evandyce.pettinder.R;
-import com.evandyce.pettinder.classes.APIConnector;
+import com.evandyce.pettinder.api.APIConnector;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
-
-import com.evandyce.pettinder.classes.Dog;
-
-import org.json.JSONArray;
 
 import java.util.List;
 import java.util.Objects;
@@ -56,8 +52,7 @@ public class CardsActivity extends AppCompatActivity {
                         .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view));
 
         // for each dog in the list add the card to the view
-        for(Dog dog : Objects.requireNonNull(APIConnector.getDogList())){
-            //dog.setImageUrl("https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png");
+        for(Dog dog : Objects.requireNonNull(APIConnector.getDogList())) {
             mSwipeView.addView(new TinderCard(mContext, dog, mSwipeView));
         }
 
@@ -77,6 +72,7 @@ public class CardsActivity extends AppCompatActivity {
             }
         });
 
+        //Todo: add the liked dogs to a new list of favorited dogs to persist
         findViewById(R.id.acceptBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
