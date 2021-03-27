@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "308455438193",
+    "project_id": "pet-tinder-308703",
+    "storage_bucket": "pet-tinder-308703.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308455438193:android:ef7891366f8be2ae56a8d0",
+        "android_client_info": {
+          "package_name": "com.evandyce.pettinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "308455438193-s560tsk5egte5nklrmcb5h2dcpu0toja.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXavUJD6IH_ZEEPOgsaMOylPGhfO9X-5A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "308455438193-s560tsk5egte5nklrmcb5h2dcpu0toja.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

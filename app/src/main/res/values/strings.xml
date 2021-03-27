@@ -9,6 +9,11 @@
     <string name="animal_type">Animal Type</string>
     <string name="age">Age</string>
 
+    <string name="error_weak_password">Password must be at least 6 characters.</string>
+    <string name="error_invalid_email">Please enter valid email.</string>
+    <string name="error_email_already_used">An account exists with this email.</string>
+    <string name="login">LOGIN</string>
+
     <string-array name="province_list_full">
         <item>British Columbia</item>
         <item>Alberta</item>

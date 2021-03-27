@@ -1,15 +1,17 @@
 package com.evandyce.pettinder.main;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.evandyce.pettinder.Login;
 import com.evandyce.pettinder.R;
 import com.evandyce.pettinder.main.fragments.FavoritesFragment;
-import com.evandyce.pettinder.main.fragments.HomeFragment;
 import com.evandyce.pettinder.main.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
@@ -27,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
         // makes the default fragment the home one
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new SearchFragment()).commit();
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_logout_24px);
     }
 
     /*
@@ -39,9 +45,6 @@ public class MainActivity extends AppCompatActivity {
                     Fragment selectedFragment = null;
 
                     switch (item.getItemId()) {
-//                        case R.id.nav_home:
-//                            selectedFragment = new HomeFragment();
-//                            break;
                         case R.id.nav_favorites:
                             selectedFragment = new FavoritesFragment();
                             break;
@@ -56,4 +59,12 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             };
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Login.logout();
+        this.startActivity(new Intent(this, Login.class));
+        return super.onOptionsItemSelected(item);
+    }
 }

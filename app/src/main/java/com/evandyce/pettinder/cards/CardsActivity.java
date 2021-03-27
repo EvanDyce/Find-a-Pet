@@ -1,20 +1,24 @@
 package com.evandyce.pettinder.cards;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.evandyce.pettinder.R;
 import com.evandyce.pettinder.api.APIConnector;
+import com.evandyce.pettinder.main.MainActivity;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 
-import java.util.List;
 import java.util.Objects;
 
 public class CardsActivity extends AppCompatActivity {
@@ -25,7 +29,7 @@ public class CardsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.card_activty);
+        setContentView(R.layout.activity_card);
 
         // initialize view and context
         mSwipeView = (SwipePlaceHolderView)findViewById(R.id.swipeView);
@@ -34,6 +38,10 @@ public class CardsActivity extends AppCompatActivity {
         // get screen size
         int bottomMargin = Utils.dpToPx(160);
         Point windowSize = Utils.getDisplaySize(getWindowManager());
+
+        // add back button
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         // adjust the swipeview to fit the size of window and other configurations
         mSwipeView.getBuilder()
@@ -86,5 +94,11 @@ public class CardsActivity extends AppCompatActivity {
                 mSwipeView.undoLastSwipe();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        this.startActivity(new Intent(this, MainActivity.class));
+        return super.onOptionsItemSelected(item);
     }
 }
