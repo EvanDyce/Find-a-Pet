@@ -1,6 +1,9 @@
 package com.evandyce.pettinder.api;
 
 import android.content.Context;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,7 +14,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.evandyce.pettinder.R;
 import com.evandyce.pettinder.cards.Dog;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,13 +28,16 @@ import java.util.List;
 import java.util.Map;
 
 public class APIConnector {
+
+    // initialize firebase instance for activity
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final String PETFINDER_KEY = "petfinder";
+    private final String PETFINDER_KEY_SECRET = "petfinder_secret";
+
+
     // urls for api requests
     public static String BASE_PETFINDER_URL = "https://api.petfinder.com/v2/animals?type=dog&limit=100";
     public static final String GET_NEW_TOKEN_URL = "https://api.petfinder.com/v2/oauth2/token";
-
-    // api ids for new token requests
-    private static final String client_id = "rvFqoGzRclPXYPIhdOUrqYiZawJgOElpUhE8Cppxn21mCXuwhW";
-    private static final String client_secret = "KqMuQg2Mubg2h5BblyZeexTwsxBcyO7CVwMmLfEq";
 
     // final static string for the new token value
     private static String new_token;
@@ -195,15 +207,35 @@ public class APIConnector {
     makes a post request to the API and gets the new token back
      */
     private void generateNewToken() {
+        DocumentReference documentReference = db.document("keys/ar6S9VvAdD5z6qCkE57X");
+
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                String client_id = documentSnapshot.getString(PETFINDER_KEY);
+                String secret_id = documentSnapshot.getString(PETFINDER_KEY_SECRET);
+
+
+                sendRequest(client_id, secret_id);
+
+                Log.d("GettingKeys", secret_id + " " + client_id);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("GettingKeys", "Uh oh this was a failure");
+            }
+        });
+    }
+
+    private void sendRequest(String client, String secret) {
         String url = "https://api.petfinder.com/v2/oauth2/token";
-        String client_id = "rvFqoGzRclPXYPIhdOUrqYiZawJgOElpUhE8Cppxn21mCXuwhW";
-        String secret_id = "KqMuQg2Mubg2h5BblyZeexTwsxBcyO7CVwMmLfEq";
 
         JSONObject postData = new JSONObject();
         try {
             postData.put("grant_type", "client_credentials");
-            postData.put("client_id", client_id);
-            postData.put("client_secret", secret_id);
+            postData.put("client_id", client);
+            postData.put("client_secret", secret);
         } catch (JSONException e) {
             e.printStackTrace();
         }
