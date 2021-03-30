@@ -99,7 +99,7 @@
                     android:layout_marginRight="@dimen/margin_right_16"
                     android:background="@drawable/red_style"
                     android:text="@string/login"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/text_20" />
 
 
@@ -118,7 +118,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
                         android:layout_marginRight="6dp"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_16"
                         android:paddingTop="@dimen/padding_16"
                         android:paddingBottom="@dimen/padding_16"
@@ -135,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
                         android:layout_marginRight="6dp"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_16"
                         android:paddingTop="@dimen/padding_16"
                         android:paddingBottom="@dimen/padding_16"

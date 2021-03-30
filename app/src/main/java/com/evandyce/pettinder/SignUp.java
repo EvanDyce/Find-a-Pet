@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.thecode.aestheticdialogs.AestheticDialog;
+import com.thecode.aestheticdialogs.DialogAnimation;
+import com.thecode.aestheticdialogs.DialogStyle;
+import com.thecode.aestheticdialogs.DialogType;
+import com.thecode.aestheticdialogs.OnDialogClickListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -101,40 +107,30 @@ public class SignUp extends AppCompatActivity {
 
                             switch (errorCode) {
 
-                                case "ERROR_INVALID_CUSTOM_TOKEN":
-                                    Toast.makeText(SignUp.this, "The custom token format is incorrect. Please check the documentation.", Toast.LENGTH_LONG).show();
-                                    break;
-
-                                case "ERROR_CUSTOM_TOKEN_MISMATCH":
-                                    Toast.makeText(SignUp.this, "The custom token corresponds to a different audience.", Toast.LENGTH_LONG).show();
-                                    break;
-
                                 case "ERROR_INVALID_CREDENTIAL":
-                                    Toast.makeText(SignUp.this, "The supplied auth credential is malformed or has expired.", Toast.LENGTH_LONG).show();
+                                    popupMessage("The authentication credential is malformed or expired.");
                                     break;
 
                                 case "ERROR_INVALID_EMAIL":
-                                    Toast.makeText(SignUp.this, "The email address is badly formatted.", Toast.LENGTH_LONG).show();
                                     mTxtEmail.setError("The email address is badly formatted.");
                                     mTxtEmail.requestFocus();
                                     break;
 
                                 case "ERROR_WRONG_PASSWORD":
-                                    mTxtPassword.setError("password is incorrect ");
-                                    mTxtPassword.requestFocus();
+                                    popupMessage("The password entered is incorrect.");
                                     mTxtPassword.setText("");
                                     break;
 
                                 case "ERROR_USER_MISMATCH":
-                                    Toast.makeText(SignUp.this, "The supplied credentials do not correspond to the previously signed in user.", Toast.LENGTH_LONG).show();
+                                    popupMessage("The supplied credentials do not correspond to the previously signed in user.");
                                     break;
 
                                 case "ERROR_REQUIRES_RECENT_LOGIN":
-                                    Toast.makeText(SignUp.this, "This operation is sensitive and requires recent authentication. Log in again before retrying this request.", Toast.LENGTH_LONG).show();
+                                    popupMessage("This operation is sensitive and requires recent authentication. Log in again before retrying this request.");
                                     break;
 
                                 case "ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL":
-                                    Toast.makeText(SignUp.this, "An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.", Toast.LENGTH_LONG).show();
+                                    popupMessage("An account already exists with the same email address but different sign-in credentials.");
                                     break;
 
                                 case "ERROR_EMAIL_ALREADY_IN_USE":
@@ -143,27 +139,27 @@ public class SignUp extends AppCompatActivity {
                                     break;
 
                                 case "ERROR_CREDENTIAL_ALREADY_IN_USE":
-                                    Toast.makeText(SignUp.this, "This credential is already associated with a different user account.", Toast.LENGTH_LONG).show();
+                                    popupMessage("This email is already associated with a different account.");
                                     break;
 
                                 case "ERROR_USER_DISABLED":
-                                    Toast.makeText(SignUp.this, "The user account has been disabled by an administrator.", Toast.LENGTH_LONG).show();
+                                    popupMessage("This account has been disabled by an administrator");
                                     break;
 
                                 case "ERROR_USER_TOKEN_EXPIRED":
-                                    Toast.makeText(SignUp.this, "The user\\'s credential is no longer valid. The user must sign in again.", Toast.LENGTH_LONG).show();
+                                    popupMessage("User's credentials have expired. Please sign in again");
                                     break;
 
                                 case "ERROR_USER_NOT_FOUND":
-                                    Toast.makeText(SignUp.this, "There is no user record corresponding to this identifier. The user may have been deleted.", Toast.LENGTH_LONG).show();
+                                    popupMessage("There is no account with this email. Please create an account.");
                                     break;
 
                                 case "ERROR_INVALID_USER_TOKEN":
-                                    Toast.makeText(SignUp.this, "The user\\'s credential is no longer valid. The user must sign in again.", Toast.LENGTH_LONG).show();
+                                    popupMessage("Please sign in again");
                                     break;
 
                                 case "ERROR_OPERATION_NOT_ALLOWED":
-                                    Toast.makeText(SignUp.this, "This operation is not allowed. You must enable this service in the console.", Toast.LENGTH_LONG).show();
+                                    popupMessage("This operation is not allowed.");
                                     break;
 
                                 case "ERROR_WEAK_PASSWORD":
@@ -207,6 +203,23 @@ public class SignUp extends AppCompatActivity {
         if (user == null) { return;  }
 
         this.startActivity(new Intent(this, MainActivity.class));
+    }
+
+    public void popupMessage(String message){
+        new AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
+                .setTitle("Error")
+                .setMessage(message)
+                .setCancelable(false)
+                .setDarkMode(false)
+                .setGravity(Gravity.CENTER)
+                .setAnimation(DialogAnimation.SHRINK)
+                .setOnClickListener(new OnDialogClickListener() {
+                    @Override
+                    public void onClick(AestheticDialog.Builder builder) {
+                        builder.dismiss();
+                    }
+                })
+                .show();
     }
 
 }

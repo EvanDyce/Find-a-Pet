@@ -1,5 +1,6 @@
 package com.evandyce.pettinder.main.fragments;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -20,6 +22,8 @@ import androidx.fragment.app.FragmentActivity;
 import com.evandyce.pettinder.cards.CardsActivity;
 import com.evandyce.pettinder.api.APIConnector;
 import com.evandyce.pettinder.R;
+
+import org.angmarch.views.NiceSpinner;
 
 public class SearchFragment extends Fragment {
 
@@ -57,9 +61,12 @@ public class SearchFragment extends Fragment {
         // initializes all of the instance variables with the proper thing from the view
         EditText et_cityName = view.findViewById(R.id.et_enterCityName);
         EditText et_range = view.findViewById(R.id.et_maxRange);
-        Spinner spinner_provinces = view.findViewById(R.id.spinner_provinceList);
+        NiceSpinner spinner_provinces = view.findViewById(R.id.provinces_spinner);
         Button search = view.findViewById(R.id.searchFragment_searchButton);
 
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(view.getContext(), R.array.province_list_full, R.layout.spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_provinces.setAdapter(adapter);
         // sets on click listener for the search button
         search.setOnClickListener(new View.OnClickListener() {
 

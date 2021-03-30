@@ -1,11 +1,17 @@
 package com.evandyce.pettinder;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.evandyce.pettinder.main.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
@@ -15,14 +21,27 @@ import com.google.firebase.auth.FirebaseUser;
 //https://github.com/firebase/snippets-android/blob/8fa42b206795c271810b038687744b2d2ac15357/auth/app/src/main/java/com/google/firebase/quickstart/auth/EmailPasswordActivity.java#L62-L79
 
 import android.app.Activity;
+import android.text.InputType;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.thecode.aestheticdialogs.AestheticDialog;
+import com.thecode.aestheticdialogs.DialogAnimation;
+import com.thecode.aestheticdialogs.DialogStyle;
+import com.thecode.aestheticdialogs.DialogType;
+import com.thecode.aestheticdialogs.OnDialogClickListener;
+
+import karpuzoglu.enes.com.fastdialog.Animations;
+import karpuzoglu.enes.com.fastdialog.FastDialog;
 
 public class Login extends Activity {
 
@@ -47,6 +66,7 @@ public class Login extends Activity {
 
         mButtCreateAccount = (Button)findViewById(R.id.button_create_account);
         mButtLogin = (Button)findViewById(R.id.button_login);
+        mButtResetPassword = (Button) findViewById(R.id.button_reset_password);
         mTxtEmail = (EditText)findViewById(R.id.et_email);
         mTxtPassword = (EditText)findViewById(R.id.et_password);
 
@@ -66,6 +86,64 @@ public class Login extends Activity {
                 signIn(em, pass);
             }
         });
+
+        mButtResetPassword.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                EditText resetMail = new EditText(Login.this);
+                Drawable style = getResources().getDrawable(R.drawable.custom_input, v.getContext().getTheme());
+                resetMail.setBackground(style);
+                resetMail.setScaleX(0.9f);
+                resetMail.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_email_black, 0, 0, 0);
+                resetMail.setCompoundDrawablePadding(20);
+                resetMail.setHint("Enter email");
+                AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext())
+                        .setTitle("Reset Password?")
+                        .setMessage("Please enter your email to receive reset link.")
+                        .setView(resetMail);
+
+                passwordResetDialog.setPositiveButton("Send", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // get email and sent reset through firebase
+                        String email = resetMail.getText().toString();
+                        mAuth.sendPasswordResetEmail(email)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        popupMessageSuccess("The reset link has been sent.");
+                                        Log.d("PasswordResetSuccess", "The email was sent.");
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                String errorMessage = e.getMessage().toString();
+                                System.out.println(errorMessage);
+                                switch (errorMessage){
+                                    case "There is no user record corresponding to this identifier. The user may have been deleted.":
+                                        popupMessageFailure("There is no account with this email. Please make an account.");
+                                        break;
+
+                                    case "The email address is badly formatted.":
+                                        popupMessageFailure("Please enter a valid email address.");
+                                        break;
+                                }
+                            }
+                        });
+                    }
+                });
+
+                passwordResetDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                passwordResetDialog.show();
+            }
+        });
         // [START initialize_auth]
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -79,9 +157,7 @@ public class Login extends Activity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Login.logout();
-        }
+        updateUI(currentUser);
     }
     // [END on_start_check_user]
 
@@ -106,40 +182,30 @@ public class Login extends Activity {
 
                             switch (errorCode) {
 
-                                case "ERROR_INVALID_CUSTOM_TOKEN":
-                                    Toast.makeText(Login.this, "The custom token format is incorrect. Please check the documentation.", Toast.LENGTH_LONG).show();
-                                    break;
-
-                                case "ERROR_CUSTOM_TOKEN_MISMATCH":
-                                    Toast.makeText(Login.this, "The custom token corresponds to a different audience.", Toast.LENGTH_LONG).show();
-                                    break;
-
                                 case "ERROR_INVALID_CREDENTIAL":
-                                    Toast.makeText(Login.this, "The supplied auth credential is malformed or has expired.", Toast.LENGTH_LONG).show();
+                                    popupMessageFailure("The authentication credential is malformed or expired.");
                                     break;
 
                                 case "ERROR_INVALID_EMAIL":
-                                    Toast.makeText(Login.this, "The email address is badly formatted.", Toast.LENGTH_LONG).show();
                                     mTxtEmail.setError("The email address is badly formatted.");
                                     mTxtEmail.requestFocus();
                                     break;
 
                                 case "ERROR_WRONG_PASSWORD":
-                                    mTxtPassword.setError("password is incorrect ");
-                                    mTxtPassword.requestFocus();
+                                    popupMessageFailure("The password entered is incorrect.");
                                     mTxtPassword.setText("");
                                     break;
 
                                 case "ERROR_USER_MISMATCH":
-                                    Toast.makeText(Login.this, "The supplied credentials do not correspond to the previously signed in user.", Toast.LENGTH_LONG).show();
+                                    popupMessageFailure("The supplied credentials do not correspond to the previously signed in user.");
                                     break;
 
                                 case "ERROR_REQUIRES_RECENT_LOGIN":
-                                    Toast.makeText(Login.this, "This operation is sensitive and requires recent authentication. Log in again before retrying this request.", Toast.LENGTH_LONG).show();
+                                    popupMessageFailure("This operation is sensitive and requires recent authentication. Log in again before retrying this request.");
                                     break;
 
                                 case "ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL":
-                                    Toast.makeText(Login.this, "An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.", Toast.LENGTH_LONG).show();
+                                    popupMessageFailure("An account already exists with the same email address but different sign-in credentials.");
                                     break;
 
                                 case "ERROR_EMAIL_ALREADY_IN_USE":
@@ -148,27 +214,27 @@ public class Login extends Activity {
                                     break;
 
                                 case "ERROR_CREDENTIAL_ALREADY_IN_USE":
-                                    Toast.makeText(Login.this, "This credential is already associated with a different user account.", Toast.LENGTH_LONG).show();
+                                    popupMessageFailure("This email is already associated with a different account.");
                                     break;
 
                                 case "ERROR_USER_DISABLED":
-                                    Toast.makeText(Login.this, "The user account has been disabled by an administrator.", Toast.LENGTH_LONG).show();
+                                    popupMessageFailure("This account has been disabled by an administrator");
                                     break;
 
                                 case "ERROR_USER_TOKEN_EXPIRED":
-                                    Toast.makeText(Login.this, "The user\\'s credential is no longer valid. The user must sign in again.", Toast.LENGTH_LONG).show();
+                                    popupMessageFailure("User's credentials have expired. Please sign in again");
                                     break;
 
                                 case "ERROR_USER_NOT_FOUND":
-                                    Toast.makeText(Login.this, "There is no user record corresponding to this identifier. The user may have been deleted.", Toast.LENGTH_LONG).show();
+                                    popupMessageFailure("There is no account with this email. Please create an account.");
                                     break;
 
                                 case "ERROR_INVALID_USER_TOKEN":
-                                    Toast.makeText(Login.this, "The user\\'s credential is no longer valid. The user must sign in again.", Toast.LENGTH_LONG).show();
+                                    popupMessageFailure("Please sign in again");
                                     break;
 
                                 case "ERROR_OPERATION_NOT_ALLOWED":
-                                    Toast.makeText(Login.this, "This operation is not allowed. You must enable this service in the console.", Toast.LENGTH_LONG).show();
+                                    popupMessageFailure("This operation is not allowed.");
                                     break;
 
                                 case "ERROR_WEAK_PASSWORD":
@@ -201,4 +267,78 @@ public class Login extends Activity {
     public static void logout() {
         FirebaseAuth.getInstance().signOut();
     }
+
+    public void popupMessageFailure(String message){
+        new AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
+                .setTitle("Error")
+                .setMessage(message)
+                .setCancelable(false)
+                .setDarkMode(false)
+                .setGravity(Gravity.CENTER)
+                .setAnimation(DialogAnimation.SHRINK)
+                .setOnClickListener(new OnDialogClickListener() {
+                    @Override
+                    public void onClick(AestheticDialog.Builder builder) {
+                        builder.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    public void popupMessageSuccess(String message) {
+        new AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.SUCCESS)
+                .setTitle("Success")
+                .setMessage(message)
+                .setCancelable(false)
+                .setDarkMode(false)
+                .setGravity(Gravity.CENTER)
+                .setAnimation(DialogAnimation.SHRINK)
+                .setOnClickListener(new OnDialogClickListener() {
+                    @Override
+                    public void onClick(AestheticDialog.Builder builder) {
+                        builder.dismiss();
+                    }
+                })
+                .show();
+    }
+
+
+//            public void onClick(View v) {
+//                EditText resetEmail = (EditText)findViewById(R.id.reset_password_email);
+//                System.out.println(resetEmail);
+//
+//                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+//                ViewGroup viewGroup = findViewById(android.R.id.content);
+//                View dialogView = LayoutInflater.from(v.getContext()).inflate(R.layout.password_reset_dialog, viewGroup, false);
+//                builder.setView(dialogView);
+//                builder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        String email = resetEmail.getText().toString();
+//
+//                        mAuth.sendPasswordResetEmail(email)
+//                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                    @Override
+//                                    public void onSuccess(Void aVoid) {
+//                                        popupMessageSuccess("The reset email has been sent");
+//                                    }
+//                                }).addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                String errorMessage = e.getMessage().toString();
+//
+//                                switch (errorMessage) {
+//                                    case "There is no user record corresponding to this identifier. The user may have been deleted.":
+//                                        popupMessageFailure("There is no account with this email. Please create an account.");
+//                                        break;
+//
+//                                    case "The email address is badly formatted.":
+//                                        popupMessageFailure("Please enter a valid email address.");
+//                                        break;
+//                                }
+//                            }
+//                        });
+//                    }
+//                });
+//                AlertDialog alertDialog = builder.create();
 }

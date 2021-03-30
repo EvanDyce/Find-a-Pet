@@ -3,6 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white">
 
     <LinearLayout
@@ -11,21 +12,23 @@
         android:layout_height="wrap_content"
         android:orientation = "vertical"
         android:layout_alignParentTop="true"
-        android:paddingTop="12dp"
+        android:paddingTop="@dimen/size_20"
         android:divider="@android:color/black"
         android:showDividers="none"
-        android:dividerPadding="25dp"
+        android:dividerPadding="@dimen/size_10"
         >
 
         <EditText
             android:id="@+id/et_enterCityName"
-            android:layout_width="370dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/size_350"
+            android:layout_height="@dimen/size_50"
             android:layout_gravity="center"
             android:hint="@string/enter_city_name"
             android:drawableStart="@drawable/ic_city"
-            android:drawablePadding="10dp"
+            android:drawablePadding="@dimen/padding_10"
             android:background="@drawable/custom_input"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
             />
 
 <!--    Select Province text and Spinner-->
@@ -39,27 +42,31 @@
             <TextView
                 android:id="@+id/tv_selectProvince"
                 android:layout_width="wrap_content"
-                android:layout_height="37dp"
+                android:layout_height="@dimen/size_38"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/selectProvincePrompt"
-                android:textSize="20sp"
+                android:textSize="@dimen/text_20"
                 android:textStyle="bold"
                 android:textColor="@color/dark_grey"/>
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp"/>
+<!--            <Space-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/size_10"/>-->
 
-            <Spinner
-                android:id="@+id/spinner_provinceList"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:entries="@array/province_list_full"
+            <org.angmarch.views.NiceSpinner
+                android:id="@+id/provinces_spinner"
+                android:layout_width="@dimen/size_250"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:entries="@array/province_list_full"
+                app:textTint="@color/black"
                 android:layout_gravity="center"
+                android:textSize="@dimen/text_20"
+                android:lines="1"
                 android:textAlignment="center"
-                android:gravity="center"
                 />
+
         </LinearLayout>
 
 <!--     Search Radius and Text Input -->
@@ -67,7 +74,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="15dp"
             android:dividerPadding="10dp"
             >
 
@@ -82,9 +88,9 @@
                 android:textStyle="bold"
                 android:textColor="@color/dark_grey"/>
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp"/>
+<!--            <Space-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="10dp"/>-->
 
             <EditText
                 android:id="@+id/et_maxRange"
@@ -93,7 +99,9 @@
                 android:layout_gravity="center"
                 android:background="@drawable/custom_input"
                 android:hint="@string/km"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"/>
         </LinearLayout>
 
 <!--     Select Animal Type -->
@@ -101,8 +109,7 @@
             android:id="@+id/searchFragment_animalTypeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="15dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_selectAnimalType"
@@ -115,18 +122,21 @@
                 android:textStyle="bold"
                 android:textColor="@color/dark_grey"/>
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp"/>
+<!--            <Space-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="10dp"/>-->
 
-            <Spinner
-                android:id="@+id/spinner_animalTypes"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:entries="@array/animal_type"
+            <org.angmarch.views.NiceSpinner
+                android:id="@+id/animal_type_spinner"
+                android:layout_width="@dimen/size_150"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:entries="@array/animal_type"
+                app:textTint="@color/black"
                 android:layout_gravity="center"
+                android:textSize="@dimen/text_20"
+                android:lines="1"
                 android:textAlignment="center"
-                android:gravity="center"
                 />
         </LinearLayout>
 
@@ -135,8 +145,7 @@
             android:id="@+id/searchFragment_animalAgeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="15dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_selectAnimalAge"
@@ -149,25 +158,28 @@
                 android:textStyle="bold"
                 android:textColor="@color/dark_grey"/>
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp"/>
+<!--            <Space-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="10dp"/>-->
 
-            <Spinner
-                android:id="@+id/spinner_animalAges"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:entries="@array/animal_ages"
+            <org.angmarch.views.NiceSpinner
+                android:id="@+id/animal_age_spinner"
+                android:layout_width="@dimen/size_150"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:entries="@array/animal_ages"
+                app:textTint="@color/black"
                 android:layout_gravity="center"
+                android:textSize="@dimen/text_20"
+                android:lines="1"
                 android:textAlignment="center"
-                android:gravity="center"
                 />
         </LinearLayout>
 
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="45dp"/>
+            android:layout_height="@dimen/size_10"/>
 
         <Button
             android:id="@+id/searchFragment_searchButton"

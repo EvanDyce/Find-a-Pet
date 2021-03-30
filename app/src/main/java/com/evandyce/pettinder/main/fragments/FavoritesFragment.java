@@ -13,6 +13,10 @@ import com.evandyce.pettinder.R;
 
 public class FavoritesFragment extends Fragment {
 
+    // good for deletion of liked items?
+    //https://github.com/pedant/sweet-alert-dialog
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
