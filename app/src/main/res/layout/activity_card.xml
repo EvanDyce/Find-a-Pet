@@ -17,22 +17,24 @@
             android:id="@+id/rejectBtn"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/home"/>
-        <ImageButton
-            android:id="@+id/acceptBtn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="30dp"
-            android:background="@drawable/favorite" />
+            android:layout_marginRight="@dimen/size_50"
+            android:background="@drawable/ic_thumb_down"/>
         <ImageButton
             android:id="@+id/undoBtn"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="30dp"
-            android:background="@android:drawable/ic_menu_revert"/>
+            android:layout_gravity="center"
+            android:background="@drawable/ic_undo"/>
+        <ImageButton
+            android:id="@+id/acceptBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="@dimen/size_50"
+            android:background="@drawable/ic_thumb_up" />
     </LinearLayout>
     <com.mindorks.placeholderview.SwipePlaceHolderView
         android:id="@+id/swipeView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:backgroundTint="@color/white"/>
 </FrameLayout>

@@ -2,8 +2,10 @@ package com.evandyce.pettinder.cards;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
 //import android.support.v7.app.AppCompatActivity;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -41,11 +43,12 @@ public class CardsActivity extends AppCompatActivity {
 
         // add back button
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#8000ff")));
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         // adjust the swipeview to fit the size of window and other configurations
         mSwipeView.getBuilder()
-                .setDisplayViewCount(3)
+                .setDisplayViewCount(5)
                 .setIsUndoEnabled(true)
                 .setHeightSwipeDistFactor(10)
                 .setWidthSwipeDistFactor(5)

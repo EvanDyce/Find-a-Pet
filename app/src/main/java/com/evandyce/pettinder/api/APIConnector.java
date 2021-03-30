@@ -2,6 +2,7 @@ package com.evandyce.pettinder.api;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -10,8 +11,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.evandyce.pettinder.R;
@@ -81,6 +87,16 @@ public class APIConnector {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                if (error instanceof NetworkError || error instanceof AuthFailureError || error instanceof NoConnectionError || error instanceof TimeoutError) {
+                    Toast.makeText(context, "Cannot connect to internet. If you have a connection please exit and restart the app.", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if(error instanceof ServerError) {
+                    Toast.makeText(context, "Server could not be found. Please try again later", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (error instanceof ParseError) {
+                    Toast.makeText(context, "Parsing error. Please try again later", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 // if the error is because the token is unauthorized then it passes the message back and generates a new token
                 if(error.networkResponse.statusCode == 401) {
                     generateNewToken();
