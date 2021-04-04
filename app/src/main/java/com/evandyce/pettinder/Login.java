@@ -33,6 +33,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.thecode.aestheticdialogs.AestheticDialog;
 import com.thecode.aestheticdialogs.DialogAnimation;
@@ -301,44 +302,4 @@ public class Login extends Activity {
                 })
                 .show();
     }
-
-
-//            public void onClick(View v) {
-//                EditText resetEmail = (EditText)findViewById(R.id.reset_password_email);
-//                System.out.println(resetEmail);
-//
-//                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-//                ViewGroup viewGroup = findViewById(android.R.id.content);
-//                View dialogView = LayoutInflater.from(v.getContext()).inflate(R.layout.password_reset_dialog, viewGroup, false);
-//                builder.setView(dialogView);
-//                builder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        String email = resetEmail.getText().toString();
-//
-//                        mAuth.sendPasswordResetEmail(email)
-//                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                    @Override
-//                                    public void onSuccess(Void aVoid) {
-//                                        popupMessageSuccess("The reset email has been sent");
-//                                    }
-//                                }).addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                String errorMessage = e.getMessage().toString();
-//
-//                                switch (errorMessage) {
-//                                    case "There is no user record corresponding to this identifier. The user may have been deleted.":
-//                                        popupMessageFailure("There is no account with this email. Please create an account.");
-//                                        break;
-//
-//                                    case "The email address is badly formatted.":
-//                                        popupMessageFailure("Please enter a valid email address.");
-//                                        break;
-//                                }
-//                            }
-//                        });
-//                    }
-//                });
-//                AlertDialog alertDialog = builder.create();
 }

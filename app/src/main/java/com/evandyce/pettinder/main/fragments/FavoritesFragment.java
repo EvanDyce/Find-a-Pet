@@ -2,9 +2,11 @@ package com.evandyce.pettinder.main.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +31,8 @@ public class FavoritesFragment extends Fragment {
 
     protected FragmentActivity mActivity;
 
+    public static List<Animal> animalList = new ArrayList<>();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,26 +52,22 @@ public class FavoritesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user != null) {
-
-        }
-
-        List<Animal> temp = new ArrayList<>();
-
-        String image = "https://images.dailyhive.com/20190429122839/shutterstock_423191707.jpg";
-
-        temp.add(new Animal("Evan", "Aldergrove", "endyce@gmail.com", "17", image, image));
-        temp.add(new Animal("Josh", "Aldergrove", "endyce@gmail.com", "60", image, image));
-        temp.add(new Animal("Quinn", "Aldergrove", "endyce@gmail.com", "21", image, image));
-
         RecyclerView rv = (RecyclerView) view.findViewById(R.id.recycler_view);
+        TextView emptyView = (TextView) view.findViewById(R.id.empty_rv);
 
         LinearLayoutManager llm = new LinearLayoutManager(mActivity);
         rv.setLayoutManager(llm);
 
-        RVAdapter adapter = new RVAdapter(mActivity, temp);
+        RVAdapter adapter = new RVAdapter(mActivity, animalList);
         rv.setAdapter(adapter);
+
+        if (animalList.isEmpty()) {
+            rv.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            rv.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
     }
+
 }

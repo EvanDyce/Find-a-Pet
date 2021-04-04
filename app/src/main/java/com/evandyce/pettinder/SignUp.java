@@ -178,7 +178,6 @@ public class SignUp extends AppCompatActivity {
 
     private void loadUserIntoDB(FirebaseUser user_firebase, String email, String name) {
 
-        System.out.println("this is the start of load user into db");
 
         user_firebase.getIdToken(true)
                 .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
@@ -195,7 +194,7 @@ public class SignUp extends AppCompatActivity {
     }
 
     private void writeData(String userID, String name, String email) {
-        User user = User.getInstance(this, userID, name, email);
+        User user = new User(userID, name, email);
 
         db.collection("users").document(userID)
                 .set(user)

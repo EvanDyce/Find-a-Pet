@@ -21,17 +21,22 @@ import com.evandyce.pettinder.main.MainActivity;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 
+import java.util.List;
 import java.util.Objects;
 
 public class CardsActivity extends AppCompatActivity {
 
     private SwipePlaceHolderView mSwipeView;
     private Context mContext;
+    private static List<Animal> animalList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
+
+        // reset the index tracker for favorites to 0
+        TinderCard.setIndex(0);
 
         // initialize view and context
         mSwipeView = (SwipePlaceHolderView)findViewById(R.id.swipeView);
@@ -62,8 +67,9 @@ public class CardsActivity extends AppCompatActivity {
                         .setSwipeInMsgLayoutId(R.layout.tinder_swipe_in_msg_view)
                         .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view));
 
+        animalList = APIConnector.getAnimalList();
         // for each dog in the list add the card to the view
-        for(Animal animal : Objects.requireNonNull(APIConnector.getAnimalList())) {
+        for(Animal animal : animalList) {
             mSwipeView.addView(new TinderCard(mContext, animal, mSwipeView));
         }
 
@@ -103,5 +109,9 @@ public class CardsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         this.startActivity(new Intent(this, MainActivity.class));
         return super.onOptionsItemSelected(item);
+    }
+
+    public static Animal getAnimalFromIndex(int index) {
+        return animalList.get(index);
     }
 }

@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
+import com.evandyce.pettinder.User;
+import com.evandyce.pettinder.main.fragments.FavoritesFragment;
+import com.evandyce.pettinder.main.fragments.SearchFragment;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;
@@ -49,6 +52,9 @@ public class TinderCard {
     private Context mContext;
     private SwipePlaceHolderView mSwipeView;
 
+    private User user;
+    private static int index = 0;
+
     public TinderCard(Context context, Animal animal, SwipePlaceHolderView swipeView) {
         mContext = context;
         mAnimal = animal;
@@ -90,6 +96,7 @@ public class TinderCard {
     @SwipeOut
     public void onSwipedOut(){
         Log.d("EVENT", "onSwipedOut");
+        index++;
 //        mSwipeView.addView(this);
     }
 
@@ -101,6 +108,8 @@ public class TinderCard {
     @SwipeIn
     public void onSwipeIn(){
         Log.d("EVENT", "onSwipedIn");
+        FavoritesFragment.animalList.add(CardsActivity.getAnimalFromIndex(index));
+        index++;
     }
 
     @SwipeInState
@@ -111,5 +120,9 @@ public class TinderCard {
     @SwipeOutState
     public void onSwipeOutState(){
         Log.d("EVENT", "onSwipeOutState");
+    }
+
+    public static void setIndex(int i) {
+        index = i;
     }
 }
