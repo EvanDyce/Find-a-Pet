@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
-import com.evandyce.pettinder.api.APIConnector;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;
@@ -26,8 +25,6 @@ import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 import com.evandyce.pettinder.R;
-
-import java.util.List;
 
 /**
  * Created by janisharali on 19/08/16.
@@ -48,13 +45,13 @@ public class TinderCard {
     @SwipeView
     android.view.View cardView;
 
-    private Dog mDog;
+    private Animal mAnimal;
     private Context mContext;
     private SwipePlaceHolderView mSwipeView;
 
-    public TinderCard(Context context, Dog dog, SwipePlaceHolderView swipeView) {
+    public TinderCard(Context context, Animal animal, SwipePlaceHolderView swipeView) {
         mContext = context;
-        mDog = dog;
+        mAnimal = animal;
         mSwipeView = swipeView;
     }
 
@@ -67,16 +64,16 @@ public class TinderCard {
                 new RoundedCornersTransformation(
                         mContext, Utils.dpToPx(7), 0,
                         RoundedCornersTransformation.CornerType.TOP));
-        Glide.with(mContext).load(mDog.getImageUrl())
+        Glide.with(mContext).load(mAnimal.getImageUrl())
                 .bitmapTransform(multi)
                 .into(profileImageView);
-        nameAgeTxt.setText(mDog.getName() + ", " + mDog.getAge());
-        locationNameTxt.setText(mDog.getLocation());
+        nameAgeTxt.setText(mAnimal.getName() + ", " + mAnimal.getAge());
+        locationNameTxt.setText(mAnimal.getLocation());
     }
 
     @SwipeHead
     public void onSwipeHeadCard() {
-        Glide.with(mContext).load(mDog.getImageUrl())
+        Glide.with(mContext).load(mAnimal.getImageUrl())
                 .bitmapTransform(new RoundedCornersTransformation(
                         mContext, Utils.dpToPx(7), 0,
                         RoundedCornersTransformation.CornerType.TOP))

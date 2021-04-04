@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.evandyce.pettinder.cards.Dog;
+import com.evandyce.pettinder.cards.Animal;
 import com.evandyce.pettinder.main.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -22,6 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.thecode.aestheticdialogs.AestheticDialog;
 import com.thecode.aestheticdialogs.DialogAnimation;
@@ -99,7 +100,7 @@ public class SignUp extends AppCompatActivity {
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            loadUserIntoDB(user, email, password, name);
+                            loadUserIntoDB(user, email, name);
 
                             updateUI(user);
                         } else {
@@ -175,16 +176,29 @@ public class SignUp extends AppCompatActivity {
         // [END create_user_with_email]
     }
 
-    private void loadUserIntoDB(FirebaseUser user, String email, String password, String name) {
-        Map<String, Object> new_person = new HashMap<>();
-        new_person.put("name", name);
-        new_person.put("email", email);
-        new_person.put("password", password);
-        new_person.put("swipes", 0);
-        new_person.put("liked_animals", new ArrayList<Dog>());
+    private void loadUserIntoDB(FirebaseUser user_firebase, String email, String name) {
 
-        db.collection("users").document(user.getUid())
-                .set(new_person)
+        System.out.println("this is the start of load user into db");
+
+        user_firebase.getIdToken(true)
+                .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<GetTokenResult> task) {
+                        if (task.isSuccessful()) {
+                            String userID = task.getResult().getToken();
+                            writeData(userID, email, name);
+                        } else {
+                            Toast.makeText(SignUp.this, "There was an error with our database. Please try again.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    private void writeData(String userID, String name, String email) {
+        User user = User.getInstance(this, userID, name, email);
+
+        db.collection("users").document(userID)
+                .set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -198,6 +212,7 @@ public class SignUp extends AppCompatActivity {
                     }
                 });
     }
+
 
     private void updateUI(FirebaseUser user) {
         if (user == null) { return;  }

@@ -63,12 +63,12 @@ public class CardsActivity extends AppCompatActivity {
                         .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view));
 
         // for each dog in the list add the card to the view
-        for(Dog dog : Objects.requireNonNull(APIConnector.getDogList())) {
-            mSwipeView.addView(new TinderCard(mContext, dog, mSwipeView));
+        for(Animal animal : Objects.requireNonNull(APIConnector.getAnimalList())) {
+            mSwipeView.addView(new TinderCard(mContext, animal, mSwipeView));
         }
 
         // adds the end card that shows that no more are around
-        Dog end = new Dog();
+        Animal end = new Animal();
         end.setImageUrl("https://www.liveabout.com/thmb/uvBVFWHAjpClFQ18Sink0O8_9j0=/641x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/yes-this-is-dog-56a4f6725f9b58b7d0da1af4.png");
         end.setName("There are no more pets available at this location");
         end.setAge("To view more increase the range or search for a new city");

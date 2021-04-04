@@ -3,7 +3,7 @@ package com.evandyce.pettinder.cards;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Dog {
+public class Animal {
     private String email;
     private String petfinderURL;
 
@@ -24,9 +24,9 @@ public class Dog {
     private String age;
 
 
-    public Dog(){}
+    public Animal(){}
 
-    public Dog(String name, String location, String email, String age, String imageUrl, String petfinderURL) {
+    public Animal(String name, String location, String email, String age, String imageUrl, String petfinderURL) {
         this.name = name;
         this.location = location;
         this.email = email;

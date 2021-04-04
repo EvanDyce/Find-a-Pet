@@ -20,8 +20,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.evandyce.pettinder.R;
-import com.evandyce.pettinder.cards.Dog;
+import com.evandyce.pettinder.cards.Animal;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -52,11 +51,11 @@ public class APIConnector {
     Context context;
 
     // arraylist to store the dogs received from api
-    private static List<Dog> dogList;
+    private static List<Animal> animalList;
 
     public APIConnector(Context context) {
         this.context = context;
-        dogList = new ArrayList<>();
+        animalList = new ArrayList<>();
         generateNewToken();
     }
 
@@ -137,7 +136,7 @@ public class APIConnector {
             }
 
             // clears old pets from the list
-            dogList.clear();
+            animalList.clear();
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 // get dog JSON object from the array returned
@@ -171,7 +170,7 @@ public class APIConnector {
                 if (petfinderURL.length() == 0) {   petfinderURL = "Unable to find URL";    }
 
                 // make new dog instance and add to the list
-                dogList.add(new Dog(name, city, email, age, imageURL, petfinderURL));
+                animalList.add(new Animal(name, city, email, age, imageURL, petfinderURL));
             }
             volleyResponseListener.onResponse();
 
@@ -277,7 +276,7 @@ public class APIConnector {
         MySingleton.getInstance(context).addToRequestQueue(request);
     }
 
-    public static List<Dog> getDogList() {
-        return dogList;
+    public static List<Animal> getAnimalList() {
+        return animalList;
     }
 }

@@ -1,53 +1,63 @@
 package com.evandyce.pettinder;
 
-import com.evandyce.pettinder.cards.Dog;
+import android.content.Context;
+
+import com.evandyce.pettinder.cards.Animal;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class User {
+    private static User instance;
+    private static Context context;
+
+    private String userID;
     private String name;
-    private String signup_date;
-    private int number_of_swipes;
-    private List<Dog> liked_animals;
+    private String email;
+    private List<Animal> favorites;
+    private int swipeCounter;
 
-    public User(){}
-
-    public User(String name, String signup_date) {
+    private User (Context ctx, String userID, String name, String email) {
+        context = ctx;
+        this.userID = userID;
         this.name = name;
-        this.signup_date = signup_date;
-        this.number_of_swipes = 0;
-        this.liked_animals = new ArrayList<>();
+        this.email = email;
+        this.favorites = new ArrayList<>();
+        this.swipeCounter = 0;
     }
+
+    public static synchronized User getInstance(Context context, String userID, String name, String email) {
+        if (instance == null) {
+            instance = new User(context, userID, name, email);
+        }
+        return instance;
+    }
+
+    public void addAnimal(Animal animal) {
+        this.favorites.add(animal);
+    }
+
+    public List<Animal> getLiked() {
+        return this.favorites;
+    }
+
+    public void incrementCounter() {
+        this.swipeCounter++;
+    }
+
+    public int getSwipeCounter() {
+        return this.swipeCounter;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSignup_date() {
-        return signup_date;
-    }
-
-    public void setSignup_date(String signup_date) {
-        this.signup_date = signup_date;
-    }
-
-    public int getNumber_of_swipes() {
-        return number_of_swipes;
-    }
-
-    public void setNumber_of_swipes(int number_of_swipes) {
-        this.number_of_swipes = number_of_swipes;
-    }
-
-    public List<Dog> getLiked_animals() {
-        return liked_animals;
-    }
-
-    public void setLiked_animals(List<Dog> liked_animals) {
-        this.liked_animals = liked_animals;
+    public String getEmail() {
+        return email;
     }
 }
