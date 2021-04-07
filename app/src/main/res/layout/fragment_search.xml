@@ -29,6 +29,7 @@
             android:background="@drawable/custom_input"
             android:textColorHint="@color/black"
             android:textColor="@color/black"
+            android:maxLines="1"
             />
 
 <!--    Select Province text and Spinner-->

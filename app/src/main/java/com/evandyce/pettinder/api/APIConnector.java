@@ -143,7 +143,7 @@ public class APIConnector {
                 JSONObject dog = jsonArray.getJSONObject(i);
 
                 // declaring all variables needed
-                String name, city, email, imageURL, age, petfinderURL;
+                String name, city, email, imageURL, age, petfinderURL, description;
 
                 // use conditionals to ensure not null values and if they are then make the changes wanted
                 name = dog.getString("name");
@@ -169,8 +169,12 @@ public class APIConnector {
                 petfinderURL = dog.getString("url");
                 if (petfinderURL.length() == 0) {   petfinderURL = "Unable to find URL";    }
 
+                description = dog.getString("description");
+                if (description.length() == 0) {    description = "No description available";   }
+
+                System.out.println(dog);
                 // make new dog instance and add to the list
-                animalList.add(new Animal(name, city, email, age, imageURL, petfinderURL));
+                animalList.add(new Animal(name, city, email, age, imageURL, petfinderURL, description));
             }
             volleyResponseListener.onResponse();
 

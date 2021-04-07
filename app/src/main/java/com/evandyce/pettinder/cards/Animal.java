@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 public class Animal {
     private String email;
     private String petfinderURL;
+    private String description;
 
     @SerializedName("name")
     @Expose
@@ -26,13 +27,14 @@ public class Animal {
 
     public Animal(){}
 
-    public Animal(String name, String location, String email, String age, String imageUrl, String petfinderURL) {
+    public Animal(String name, String location, String email, String age, String imageUrl, String petfinderURL, String description) {
         this.name = name;
         this.location = location;
         this.email = email;
         this.age = age;
         this.imageUrl = imageUrl;
         this.petfinderURL = petfinderURL;
+        this.description = description;
     }
 
     public String getEmail() {
@@ -81,5 +83,9 @@ public class Animal {
 
     public void setAge(String age) {
         this.age = age;
+    }
+
+    public String getDescription() {
+        return  this.description;
     }
 }

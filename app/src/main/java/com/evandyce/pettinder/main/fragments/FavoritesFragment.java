@@ -32,6 +32,8 @@ public class FavoritesFragment extends Fragment {
     protected FragmentActivity mActivity;
 
     public static List<Animal> animalList = new ArrayList<>();
+    private static RecyclerView rv;
+    private static TextView emptyView;
 
     @Nullable
     @Override
@@ -52,8 +54,8 @@ public class FavoritesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView rv = (RecyclerView) view.findViewById(R.id.recycler_view);
-        TextView emptyView = (TextView) view.findViewById(R.id.empty_rv);
+        rv = (RecyclerView) view.findViewById(R.id.recycler_view);
+        emptyView = (TextView) view.findViewById(R.id.empty_rv);
 
         LinearLayoutManager llm = new LinearLayoutManager(mActivity);
         rv.setLayoutManager(llm);
@@ -61,6 +63,10 @@ public class FavoritesFragment extends Fragment {
         RVAdapter adapter = new RVAdapter(mActivity, animalList);
         rv.setAdapter(adapter);
 
+        emptyList(animalList);
+    }
+
+    public static void emptyList(List<Animal> arr) {
         if (animalList.isEmpty()) {
             rv.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
