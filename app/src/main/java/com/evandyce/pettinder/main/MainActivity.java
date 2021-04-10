@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import com.evandyce.pettinder.Login;
 import com.evandyce.pettinder.R;
 import com.evandyce.pettinder.main.fragments.FavoritesFragment;
+import com.evandyce.pettinder.main.fragments.ProfileFragment;
 import com.evandyce.pettinder.main.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
@@ -53,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case R.id.nav_search:
                             selectedFragment = new SearchFragment();
+                            break;
+                        case R.id.nav_profile:
+                            selectedFragment = new ProfileFragment();
                             break;
                     }
 

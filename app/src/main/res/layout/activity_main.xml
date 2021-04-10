@@ -25,6 +25,7 @@
         android:backgroundTint="?android:attr/windowBackground"
         android:background="@color/purple"
         app:itemIconTint="@color/black"
-        app:itemIconSize="@android:dimen/app_icon_size"/>
+        app:itemIconSize="@android:dimen/app_icon_size"
+        app:labelVisibilityMode="unlabeled"/>
 
 </RelativeLayout>

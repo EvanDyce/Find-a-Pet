@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Todo: Make a layout for the home. Rundown of what the app is.-->
+
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_grey"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="405dp">
+            <LinearLayout
+                android:background="@color/yellow"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="350dp">
+
+                <ImageView
+                    android:id="@+id/profile_profilepic_image"
+                    android:layout_marginTop="45dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/rosie"/>
+
+                <TextView
+                    android:id="@+id/profile_name_tv"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Evan Dyce"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="30sp"/>
+
+                <TextView
+                    android:id="@+id/profile_email_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="endyce@gmail.com"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="400dp"
+                android:layout_height="120dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="275dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:text="Swipes"
+                            android:textSize="20sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/profile_swipes_tv"
+                            android:text="125"
+                            android:textStyle="bold"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/light_grey"
+                            android:textSize="20sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:text="Current Liked"
+                            android:textSize="20sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/profile_currentliked_tv"
+                            android:text="237"
+                            android:textStyle="bold"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/light_grey"
+                            android:textSize="20sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:text="Total Liked"
+                            android:textSize="20sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/profile_totalliked_tv"
+                            android:text="200"
+                            android:textStyle="bold"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/light_grey"
+                            android:textSize="20sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/profile_resetpassword_button"
+            android:textColor="#fff"
+            android:layout_marginVertical="35dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Password"/>
+
+        <Button
+            android:id="@+id/profile_signout_button"
+            android:textColor="@color/white"
+            android:layout_marginVertical="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log Out"/>
+
+    </LinearLayout>
+
+</ScrollView>
+<!--Home fragment for the main activity-->
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:background="@android:color/white">-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/profile_name_tv"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="28dp"-->
+<!--        android:layout_marginEnd="50dp"-->
+<!--        android:fontFamily="sans-serif-black"-->
+<!--        android:text="Evan's Profile"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="@dimen/text_50"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.258"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/profile_email_tv"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="28dp"-->
+<!--        android:layout_marginEnd="50dp"-->
+<!--        android:text="Email: endyce@gmail.com"-->
+<!--        android:fontFamily="sans-serif-medium"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="@dimen/text_20"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.346"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/profile_name_tv" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/profile_numberswipes_tv"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:layout_marginEnd="50dp"-->
+<!--        android:text="Number of Swipes: 98"-->
+<!--        android:fontFamily="sans-serif-medium"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="@dimen/text_20"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.28"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/profile_email_tv" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/profile_currentlyliked_tv"-->
+<!--        android:layout_width="193dp"-->
+<!--        android:layout_height="30dp"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:layout_marginEnd="50dp"-->
+<!--        android:fontFamily="sans-serif-medium"-->
+<!--        android:text="Currently Liked Pets: 16"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="@dimen/text_20"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.273"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/profile_numberswipes_tv" />-->
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/profile_totalliked_tv"-->
+<!--        android:layout_width="193dp"-->
+<!--        android:layout_height="30dp"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:layout_marginEnd="50dp"-->
+<!--        android:text="Total Liked Pets: 81"-->
+<!--        android:fontFamily="sans-serif-medium"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="@dimen/text_20"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.273"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/profile_currentlyliked_tv" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/profile_signout_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginBottom="50dp"-->
+<!--        android:text="Button"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+
+
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
