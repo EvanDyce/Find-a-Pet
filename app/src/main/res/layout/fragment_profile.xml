@@ -38,7 +38,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Evan Dyce"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:textSize="30sp"/>
@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="endyce@gmail.com"
+                    android:text=""
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"/>
@@ -81,7 +81,7 @@
 
                         <TextView
                             android:id="@+id/profile_swipes_tv"
-                            android:text="125"
+                            android:text=""
                             android:textStyle="bold"
                             android:paddingTop="10dp"
                             android:textColor="@color/light_grey"
@@ -104,7 +104,7 @@
 
                         <TextView
                             android:id="@+id/profile_currentliked_tv"
-                            android:text="237"
+                            android:text=""
                             android:textStyle="bold"
                             android:paddingTop="10dp"
                             android:textColor="@color/light_grey"
@@ -127,7 +127,7 @@
 
                         <TextView
                             android:id="@+id/profile_totalliked_tv"
-                            android:text="200"
+                            android:text=""
                             android:textStyle="bold"
                             android:paddingTop="10dp"
                             android:textColor="@color/light_grey"

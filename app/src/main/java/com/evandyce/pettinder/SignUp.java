@@ -177,15 +177,13 @@ public class SignUp extends AppCompatActivity {
     }
 
     private void loadUserIntoDB(FirebaseUser user_firebase, String email, String name) {
-
-
         user_firebase.getIdToken(true)
                 .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
                     @Override
                     public void onComplete(@NonNull Task<GetTokenResult> task) {
                         if (task.isSuccessful()) {
                             String userID = task.getResult().getToken();
-                            writeData(userID, email, name);
+                            writeData(userID, name, email);
                         } else {
                             Toast.makeText(SignUp.this, "There was an error with our database. Please try again.", Toast.LENGTH_SHORT).show();
                         }
@@ -194,10 +192,16 @@ public class SignUp extends AppCompatActivity {
     }
 
     private void writeData(String userID, String name, String email) {
-        User user = new User(userID, name, email);
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("userID", userID);
+        userData.put("name", name);
+        userData.put("email", email);
+        userData.put("swipes", 0);
+        userData.put("liked_count", 0);
+        userData.put("liked_list", new ArrayList<Animal>());
 
-        db.collection("users").document(userID)
-                .set(user)
+        db.collection("users").document(email)
+                .set(userData)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

@@ -236,8 +236,6 @@ public class APIConnector {
 
 
                 sendRequest(client_id, secret_id);
-
-                Log.d("GettingKeys", secret_id + " " + client_id);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
