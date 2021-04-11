@@ -37,6 +37,8 @@ import java.util.Map;
  */
 public class Utils {
 
+    String TAG = "UTILS";
+
     // gets the size of the screen
     public static Point getDisplaySize(WindowManager windowManager) {
         try {
@@ -94,6 +96,7 @@ public class Utils {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         DocumentReference userReference = db.collection("users").document(user.getEmail());
+        Log.d("UTILS", "Document Reference Found");
 
         userReference
                 .get()
@@ -103,11 +106,16 @@ public class Utils {
                         if(task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if(document.exists()) {
+                                Log.d("UTILS", "Document found successfully");
                                 Long swipeCount = (Long) document.get("swipes");
                                 Long totalLiked = (Long) document.get("liked_count");
                                 String name = (String) document.get("name");
                                 setData(userReference, user, swipeCount, totalLiked, name);
+                            } else {
+                                Log.e("UTILS", "Document does not exist");
                             }
+                        } else {
+                            Log.e("UTILS", "Task was not successful");
                         }
                     }
                 });
@@ -124,13 +132,13 @@ public class Utils {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d("DATA", "Document written successfully");
+                        Log.d("UTILS", "Document written successfully");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w("DATA", "Error writing to document", e);
+                        Log.w("UTILS", "Error writing to document", e);
                     }
                 });
     }

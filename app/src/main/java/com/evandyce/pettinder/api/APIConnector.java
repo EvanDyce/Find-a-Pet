@@ -34,6 +34,8 @@ import java.util.Map;
 
 public class APIConnector {
 
+    String TAG = "APIConnector";
+
     // initialize firebase instance for activity
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final String PETFINDER_KEY = "petfinder";
@@ -119,6 +121,7 @@ public class APIConnector {
             }
         };
 
+        Log.d(TAG, "API Request completed successfully");
         MySingleton.getInstance(context).addToRequestQueue(request);
     }
 
@@ -218,6 +221,7 @@ public class APIConnector {
             temp += "&location=" + province;
         }
 
+        Log.d(TAG, "URL parameters set");
         return temp;
     }
 
@@ -233,14 +237,13 @@ public class APIConnector {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 String client_id = documentSnapshot.getString(PETFINDER_KEY);
                 String secret_id = documentSnapshot.getString(PETFINDER_KEY_SECRET);
-
-
+                Log.d(TAG, "API Key Retrieval Success");
                 sendRequest(client_id, secret_id);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d("GettingKeys", "Uh oh this was a failure");
+                Log.d(TAG, "API Key Retrieval Failed");
             }
         });
     }
@@ -263,15 +266,16 @@ public class APIConnector {
                     public void onResponse(JSONObject response) {
                         try {
                             new_token = response.getString("access_token");
+                            Log.d(TAG, "New Token Generated: " + new_token);
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            Log.e(TAG, "New Token Failed: " + e.toString());
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
+                        Log.e(TAG, "JSON Request Failed: " + error.toString());
                     }
                 });
 

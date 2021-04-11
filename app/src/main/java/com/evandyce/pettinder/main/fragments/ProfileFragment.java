@@ -55,6 +55,8 @@ import static com.evandyce.pettinder.cards.Utils.popupMessageFailure;
 
 public class ProfileFragment extends Fragment {
 
+    String TAG = "ProfileFrag";
+
     protected FragmentActivity mActivity;
     private FirebaseAuth mAuth;
     private FirebaseFirestore mDatabase;
@@ -65,7 +67,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        System.out.println("this is oncreateview");
         return view;
     }
 
@@ -75,14 +76,11 @@ public class ProfileFragment extends Fragment {
         if (context instanceof Activity) {
             mActivity = (FragmentActivity) context;
         }
-        System.out.println("this is onAttach");
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
 
         Button logOut = view.findViewById(R.id.profile_signout_button);
         Button changePassword = view.findViewById(R.id.profile_resetpassword_button);
@@ -112,13 +110,13 @@ public class ProfileFragment extends Fragment {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         popupMessageSuccess(mActivity, "The reset link has been sent.");
-                                        Log.d("PasswordResetSuccess", "The email was sent.");
+                                        Log.d(TAG, "The email was sent.");
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                String errorMessage = e.getMessage().toString();
-                                System.out.println(errorMessage);
+                                String errorMessage = e.getMessage();
+                                Log.w(TAG, "Password Reset Failed: " + errorMessage);
                                 switch (errorMessage){
                                     case "There is no user record corresponding to this identifier. The user may have been deleted.":
                                         popupMessageFailure(mActivity, "There is no account with this email. Please make an account.");
@@ -176,7 +174,7 @@ public class ProfileFragment extends Fragment {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
-                                Log.d("DATA", "DocumentSnapshot data: "+ document.getData());
+                                Log.d(TAG, "DocumentSnapshot Retrieved Successfully: "+ document.getData());
                                 email.setText(document.get("email").toString());
                                 name.setText(document.get("name").toString());
                                 swipeCount.setText(String.valueOf((Long) document.get("swipes")));
@@ -184,10 +182,10 @@ public class ProfileFragment extends Fragment {
                                 totalLiked.setText(String.valueOf((Long) document.get("liked_count")));
 
                             } else {
-                                Log.d("DATA", "No such document");
+                                Log.d(TAG, "No such document");
                             }
                         } else {
-                            Log.d("DATA", "get failed with" + task.getException());
+                            Log.d(TAG, "Get Document Failed: " + task.getException());
                         }
                     }
                 });

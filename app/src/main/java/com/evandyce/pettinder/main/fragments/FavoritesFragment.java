@@ -63,10 +63,10 @@ public class FavoritesFragment extends Fragment {
         RVAdapter adapter = new RVAdapter(mActivity, animalList);
         rv.setAdapter(adapter);
 
-        emptyList(animalList);
+        emptyList();
     }
 
-    public static void emptyList(List<Animal> arr) {
+    public static void emptyList() {
         if (animalList.isEmpty()) {
             rv.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);

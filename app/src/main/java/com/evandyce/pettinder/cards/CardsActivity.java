@@ -7,6 +7,7 @@ import android.graphics.Point;
 //import android.support.v7.app.AppCompatActivity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class CardsActivity extends AppCompatActivity {
+
+    String TAG = "CardsActivity";
 
     private SwipePlaceHolderView mSwipeView;
     private Context mContext;
@@ -72,6 +75,7 @@ public class CardsActivity extends AppCompatActivity {
         for(Animal animal : animalList) {
             mSwipeView.addView(new TinderCard(mContext, animal, mSwipeView));
         }
+        Log.d(TAG, "Animals added to swipeview");
 
         // adds the end card that shows that no more are around
         Animal end = new Animal();
@@ -89,7 +93,6 @@ public class CardsActivity extends AppCompatActivity {
             }
         });
 
-        //Todo: add the liked dogs to a new list of favorited dogs to persist
         findViewById(R.id.acceptBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

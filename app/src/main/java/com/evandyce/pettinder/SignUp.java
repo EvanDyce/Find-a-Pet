@@ -100,7 +100,7 @@ public class SignUp extends AppCompatActivity {
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            loadUserIntoDB(user, email, name);
+                            loadUserIntoDB(email, name);
 
                             updateUI(user);
                         } else {
@@ -176,29 +176,7 @@ public class SignUp extends AppCompatActivity {
         // [END create_user_with_email]
     }
 
-    private void loadUserIntoDB(FirebaseUser user_firebase, String email, String name) {
-        user_firebase.getIdToken(true)
-                .addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
-                    @Override
-                    public void onSuccess(GetTokenResult getTokenResult) {
-                        String userID = getTokenResult.getToken();
-                        writeData(name, email);
-                    }
-                });
-//                .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<GetTokenResult> task) {
-//                        if (task.isSuccessful()) {
-//                            String userID = task.getResult().getToken();
-//                            writeData(userID, name, email);
-//                        } else {
-//                            Toast.makeText(SignUp.this, "There was an error with our database. Please try again.", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-    }
-
-    private void writeData(String name, String email) {
+    private void loadUserIntoDB(String email, String name) {
         Map<String, Object> userData = new HashMap<>();
         userData.put("name", name);
         userData.put("email", email);
