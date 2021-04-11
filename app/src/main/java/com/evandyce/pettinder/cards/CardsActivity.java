@@ -111,6 +111,12 @@ public class CardsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Utils.updateDatabaseOnStop();
+    }
+
     public static Animal getAnimalFromIndex(int index) {
         return animalList.get(index);
     }

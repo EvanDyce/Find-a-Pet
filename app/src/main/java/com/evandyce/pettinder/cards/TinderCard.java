@@ -97,6 +97,7 @@ public class TinderCard {
     public void onSwipedOut(){
         Log.d("EVENT", "onSwipedOut");
         index++;
+        User.incrementCounter();
 //        mSwipeView.addView(this);
     }
 
@@ -110,6 +111,8 @@ public class TinderCard {
         Log.d("EVENT", "onSwipedIn");
         FavoritesFragment.animalList.add(CardsActivity.getAnimalFromIndex(index));
         index++;
+        User.incrementCounter();
+        User.incrementLikedCounter();
     }
 
     @SwipeInState
@@ -124,5 +127,8 @@ public class TinderCard {
 
     public static void setIndex(int i) {
         index = i;
+    }
+    public static int getIndex() {
+        return index;
     }
 }

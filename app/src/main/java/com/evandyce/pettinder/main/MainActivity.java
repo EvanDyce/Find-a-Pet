@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.evandyce.pettinder.Login;
@@ -16,8 +17,14 @@ import com.evandyce.pettinder.R;
 import com.evandyce.pettinder.main.fragments.FavoritesFragment;
 import com.evandyce.pettinder.main.fragments.ProfileFragment;
 import com.evandyce.pettinder.main.fragments.SearchFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +44,27 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#8000ff")));
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_logout_24px);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        db.collection("users").document(user.getEmail())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if(document.exists()) {
+                                Log.d("MAIN", "Liked Pets retrieved successfully");
+                            } else {
+                                Log.d("MAIN", "No document exists");
+                            }
+                        } else {
+                            Log.d("MAIN", "Task failed with" + task.getException());
+                        }
+                    }
+                });
     }
 
     /*
@@ -74,4 +102,5 @@ public class MainActivity extends AppCompatActivity {
         this.startActivity(new Intent(this, Login.class));
         return super.onOptionsItemSelected(item);
     }
+
 }

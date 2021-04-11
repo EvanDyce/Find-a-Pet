@@ -25,8 +25,11 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.evandyce.pettinder.Login;
 import com.evandyce.pettinder.R;
+import com.evandyce.pettinder.User;
 import com.evandyce.pettinder.api.APIConnector;
 import com.evandyce.pettinder.cards.Animal;
+import com.evandyce.pettinder.cards.TinderCard;
+import com.evandyce.pettinder.cards.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -47,6 +50,9 @@ import org.w3c.dom.Text;
 import java.util.List;
 import java.util.Map;
 
+import static com.evandyce.pettinder.cards.Utils.popupMessageSuccess;
+import static com.evandyce.pettinder.cards.Utils.popupMessageFailure;
+
 public class ProfileFragment extends Fragment {
 
     protected FragmentActivity mActivity;
@@ -59,6 +65,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        System.out.println("this is oncreateview");
         return view;
     }
 
@@ -68,24 +75,14 @@ public class ProfileFragment extends Fragment {
         if (context instanceof Activity) {
             mActivity = (FragmentActivity) context;
         }
+        System.out.println("this is onAttach");
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.setLanguageCode("en");
-        mDatabase = FirebaseFirestore.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
 
-        ImageView profilePicture = view.findViewById(R.id.profile_profilepic_image);
-        TextView name = view.findViewById(R.id.profile_name_tv);
-        TextView email = view.findViewById(R.id.profile_email_tv);
-
-        TextView swipeCount = view.findViewById(R.id.profile_swipes_tv);
-        TextView currentLiked = view.findViewById(R.id.profile_currentliked_tv);
-        TextView totalLiked = view.findViewById(R.id.profile_totalliked_tv);
 
         Button logOut = view.findViewById(R.id.profile_signout_button);
         Button changePassword = view.findViewById(R.id.profile_resetpassword_button);
@@ -114,7 +111,7 @@ public class ProfileFragment extends Fragment {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        popupMessageSuccess("The reset link has been sent.");
+                                        popupMessageSuccess(mActivity, "The reset link has been sent.");
                                         Log.d("PasswordResetSuccess", "The email was sent.");
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
@@ -124,11 +121,11 @@ public class ProfileFragment extends Fragment {
                                 System.out.println(errorMessage);
                                 switch (errorMessage){
                                     case "There is no user record corresponding to this identifier. The user may have been deleted.":
-                                        popupMessageFailure("There is no account with this email. Please make an account.");
+                                        popupMessageFailure(mActivity, "There is no account with this email. Please make an account.");
                                         break;
 
                                     case "The email address is badly formatted.":
-                                        popupMessageFailure("Please enter a valid email address.");
+                                        popupMessageFailure(mActivity, "Please enter a valid email address.");
                                         break;
                                 }
                             }
@@ -154,7 +151,23 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-//        name.setText(user.getDisplayName().toString());
+        setProfileValues(view);
+    }
+
+    private void setProfileValues(View view) {
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.setLanguageCode("en");
+        mDatabase = FirebaseFirestore.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        ImageView profilePicture = view.findViewById(R.id.profile_profilepic_image);
+        TextView name = view.findViewById(R.id.profile_name_tv);
+        TextView email = view.findViewById(R.id.profile_email_tv);
+
+        TextView swipeCount = view.findViewById(R.id.profile_swipes_tv);
+        TextView currentLiked = view.findViewById(R.id.profile_currentliked_tv);
+        TextView totalLiked = view.findViewById(R.id.profile_totalliked_tv);
+
         mDatabase.collection("users").document(user.getEmail())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -166,59 +179,18 @@ public class ProfileFragment extends Fragment {
                                 Log.d("DATA", "DocumentSnapshot data: "+ document.getData());
                                 email.setText(document.get("email").toString());
                                 name.setText(document.get("name").toString());
-                                swipeCount.setText(document.get("swipes").toString());
-                                List<Animal> liked_list = (List<Animal>) document.get("liked_list");
-                                currentLiked.setText(String.valueOf(liked_list.size()));
-                                totalLiked.setText(document.get("liked_count").toString());
+                                swipeCount.setText(String.valueOf((Long) document.get("swipes")));
+                                currentLiked.setText(String.valueOf(FavoritesFragment.animalList.size()));
+                                totalLiked.setText(String.valueOf((Long) document.get("liked_count")));
 
                             } else {
                                 Log.d("DATA", "No such document");
                             }
                         } else {
-                            Log.d("DATAO", "get failed with" + task.getException());
+                            Log.d("DATA", "get failed with" + task.getException());
                         }
                     }
                 });
-
-
     }
 
-
-    public void popupMessageFailure(String message){
-        new AestheticDialog.Builder(mActivity, DialogStyle.FLAT, DialogType.ERROR)
-                .setTitle("Error")
-                .setMessage(message)
-                .setCancelable(false)
-                .setDarkMode(false)
-                .setGravity(Gravity.CENTER)
-                .setAnimation(DialogAnimation.SHRINK)
-                .setOnClickListener(new OnDialogClickListener() {
-                    @Override
-                    public void onClick(AestheticDialog.Builder builder) {
-                        builder.dismiss();
-                    }
-                })
-                .show();
-    }
-
-    public void popupMessageSuccess(String message) {
-        new AestheticDialog.Builder(mActivity, DialogStyle.FLAT, DialogType.SUCCESS)
-                .setTitle("Success")
-                .setMessage(message)
-                .setCancelable(false)
-                .setDarkMode(false)
-                .setGravity(Gravity.CENTER)
-                .setAnimation(DialogAnimation.SHRINK)
-                .setOnClickListener(new OnDialogClickListener() {
-                    @Override
-                    public void onClick(AestheticDialog.Builder builder) {
-                        builder.dismiss();
-                    }
-                })
-                .show();
-    }
-
-    public void setUserID(String id) {
-        this.userID = id;
-    }
 }

@@ -178,22 +178,28 @@ public class SignUp extends AppCompatActivity {
 
     private void loadUserIntoDB(FirebaseUser user_firebase, String email, String name) {
         user_firebase.getIdToken(true)
-                .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                .addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<GetTokenResult> task) {
-                        if (task.isSuccessful()) {
-                            String userID = task.getResult().getToken();
-                            writeData(userID, name, email);
-                        } else {
-                            Toast.makeText(SignUp.this, "There was an error with our database. Please try again.", Toast.LENGTH_SHORT).show();
-                        }
+                    public void onSuccess(GetTokenResult getTokenResult) {
+                        String userID = getTokenResult.getToken();
+                        writeData(name, email);
                     }
                 });
+//                .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<GetTokenResult> task) {
+//                        if (task.isSuccessful()) {
+//                            String userID = task.getResult().getToken();
+//                            writeData(userID, name, email);
+//                        } else {
+//                            Toast.makeText(SignUp.this, "There was an error with our database. Please try again.", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
     }
 
-    private void writeData(String userID, String name, String email) {
+    private void writeData(String name, String email) {
         Map<String, Object> userData = new HashMap<>();
-        userData.put("userID", userID);
         userData.put("name", name);
         userData.put("email", email);
         userData.put("swipes", 0);
