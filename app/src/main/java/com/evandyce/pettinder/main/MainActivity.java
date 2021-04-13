@@ -17,6 +17,7 @@ import com.evandyce.pettinder.Login;
 import com.evandyce.pettinder.R;
 import com.evandyce.pettinder.api.APIConnector;
 import com.evandyce.pettinder.cards.Animal;
+import com.evandyce.pettinder.cards.Utils;
 import com.evandyce.pettinder.main.fragments.FavoritesFragment;
 import com.evandyce.pettinder.main.fragments.ProfileFragment;
 import com.evandyce.pettinder.main.fragments.SearchFragment;
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case R.id.nav_profile:
                             selectedFragment = new ProfileFragment();
+
                             break;
                     }
 
@@ -131,4 +133,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Utils.updateDatabaseOnStop();
+    }
 }

@@ -14,6 +14,7 @@
     <string name="error_email_already_used">An account exists with this email.</string>
     <string name="login">LOGIN</string>
     <string name="empty_recycler">You have not liked any pets yet. Get swiping!!</string>
+    <string name="EmailTest">Email</string>
 
     <string-array name="province_list_full">
         <item>British Columbia</item>

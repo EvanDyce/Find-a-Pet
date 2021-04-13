@@ -75,5 +75,4 @@ public class FavoritesFragment extends Fragment {
             emptyView.setVisibility(View.GONE);
         }
     }
-
 }

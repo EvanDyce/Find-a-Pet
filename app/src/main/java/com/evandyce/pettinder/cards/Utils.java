@@ -8,11 +8,16 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.evandyce.pettinder.R;
 import com.evandyce.pettinder.User;
+import com.evandyce.pettinder.main.MainActivity;
 import com.evandyce.pettinder.main.fragments.FavoritesFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -158,6 +163,7 @@ public class Utils {
     }
 
     private static void setData(DocumentReference doc, FirebaseUser user, Long swipeCount, Long totalLiked, String name) {
+
         Map<String, Object> data = new HashMap<>();
         data.put("name", name);
         data.put("email", user.getEmail());

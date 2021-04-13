@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".cards.CardsActivity" />
+        <activity android:name=".SignUp"/>
         <activity android:name=".main.MainActivity">
 
             <!-- <intent-filter> -->
