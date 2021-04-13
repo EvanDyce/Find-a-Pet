@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.evandyce.pettinder.Login;
 import com.evandyce.pettinder.R;
@@ -34,10 +35,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String email;
-    public static String name;
-    public static int swipes;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,14 +43,15 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         bottomNav.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_UNLABELED);
+
         // makes the default fragment the home one
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new SearchFragment()).commit();
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#8000ff")));
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_logout_24px);
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(R.string.app_name);
 
         // create new apiconnector in order to generate the new tokens
         new APIConnector(this).generateNewToken();
@@ -72,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                             DocumentSnapshot document = task.getResult();
                             if(document.exists()) {
                                 Log.d("MAIN", "Liked Pets retrieved successfully");
+
                                 List<HashMap<String, Object>> animalsHashMap = (List<HashMap<String, Object>>) document.get("liked_list");
 
                                 for (HashMap<String, Object> map : animalsHashMap) {
@@ -85,8 +84,6 @@ public class MainActivity extends AppCompatActivity {
 
                                     FavoritesFragment.animalList.add(new Animal(name, location, email, age, imageURL, petfinderURL, description));
                                 }
-//                                FavoritesFragment.animalList = (ArrayList<HashMap()>) document.get("liked_list");
-//                                System.out.println(((List<HashMap<String, Object>>)document.get("liked_list")).get(0).get("name"));
                             } else {
                                 Log.d("MAIN", "No document exists");
                             }
@@ -95,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+
     }
 
     /*

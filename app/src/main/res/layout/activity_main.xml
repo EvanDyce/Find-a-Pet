@@ -23,7 +23,7 @@
         android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_navigation"
         android:backgroundTint="?android:attr/windowBackground"
-        android:background="@color/purple"
+        android:background="@color/white"
         app:itemIconTint="@color/black"
         app:itemIconSize="@android:dimen/app_icon_size"
         app:labelVisibilityMode="unlabeled"/>

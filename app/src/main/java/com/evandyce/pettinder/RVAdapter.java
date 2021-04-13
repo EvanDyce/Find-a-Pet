@@ -91,12 +91,13 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
             }
         });
 
-        holder.animalImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showImageDialog(animals.get(position).getImageUrl());
-            }
-        });
+
+//        holder.animalImage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showImageDialog(animals.get(position).getImageUrl());
+//            }
+//        });
 
         holder.animalName.setText(animals.get(position).getName());
         holder.animalLocation.setText(animals.get(position).getLocation());

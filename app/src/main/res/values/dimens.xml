@@ -27,4 +27,5 @@
     <dimen name="text_12">12sp</dimen>
     <dimen name="size_100">100dp</dimen>
     <dimen name="text_50">50sp</dimen>
+    <dimen name="size_400">400sp</dimen>
 </resources>

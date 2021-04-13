@@ -5,13 +5,14 @@
 <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/light_grey"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="vertical"
         tools:context=".MainActivity">
 
@@ -19,18 +20,29 @@
             android:layout_width="match_parent"
             android:layout_height="405dp">
             <LinearLayout
-                android:background="@color/yellow"
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:layout_height="350dp">
 
-                <ImageView
+<!--                <ImageView-->
+<!--                    android:id="@+id/profile_profilepic_image"-->
+<!--                    android:layout_width="295dp"-->
+<!--                    android:layout_height="150dp"-->
+<!--                    android:layout_gravity="center_horizontal"-->
+<!--                    android:layout_marginTop="45dp"-->
+<!--                    android:src="@drawable/rosie" />-->
+
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_profilepic_image"
-                    android:layout_marginTop="45dp"
+                    android:layout_width="175dp"
+                    android:layout_height="175dp"
+                    android:src="@drawable/rosie_circle"
                     android:layout_gravity="center_horizontal"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:src="@drawable/rosie"/>
+                    android:layout_marginTop="20dp"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="2dp"
+                    />
 
                 <TextView
                     android:id="@+id/profile_name_tv"
@@ -41,7 +53,7 @@
                     android:text=""
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:textSize="30sp"/>
+                    android:textSize="35sp"/>
 
                 <TextView
                     android:id="@+id/profile_email_tv"
@@ -49,22 +61,23 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text=""
-                    android:textSize="12sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"/>
 
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="400dp"
-                android:layout_height="120dp"
+                android:layout_width="@dimen/size_350"
+                android:layout_height="135dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="275dp">
+                android:layout_marginTop="280dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
+                    android:background="@drawable/rounded"
                     android:weightSum="3">
 
                     <LinearLayout
@@ -75,6 +88,7 @@
                         android:layout_height="match_parent">
                         <TextView
                             android:text="Swipes"
+                            android:textColor="@color/black"
                             android:textSize="20sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -83,8 +97,8 @@
                             android:id="@+id/profile_swipes_tv"
                             android:text=""
                             android:textStyle="bold"
-                            android:paddingTop="10dp"
-                            android:textColor="@color/light_grey"
+                            android:paddingTop="@dimen/size_10"
+                            android:textColor="@color/black"
                             android:textSize="20sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -97,7 +111,8 @@
                         android:layout_weight="1"
                         android:layout_height="match_parent">
                         <TextView
-                            android:text="Current Liked"
+                            android:text="Liked"
+                            android:textColor="@color/black"
                             android:textSize="20sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -107,7 +122,7 @@
                             android:text=""
                             android:textStyle="bold"
                             android:paddingTop="10dp"
-                            android:textColor="@color/light_grey"
+                            android:textColor="@color/black"
                             android:textSize="20sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -120,7 +135,9 @@
                         android:layout_weight="1"
                         android:layout_height="match_parent">
                         <TextView
-                            android:text="Total Liked"
+                            android:text="All Time Liked"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
                             android:textSize="20sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -130,7 +147,7 @@
                             android:text=""
                             android:textStyle="bold"
                             android:paddingTop="10dp"
-                            android:textColor="@color/light_grey"
+                            android:textColor="@color/black"
                             android:textSize="20sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -146,18 +163,21 @@
 
         <Button
             android:id="@+id/profile_resetpassword_button"
-            android:textColor="#fff"
-            android:layout_marginVertical="35dp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="@dimen/size_20"
+            android:layout_marginTop="70dp"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/rounded"
             android:text="Change Password"/>
 
         <Button
             android:id="@+id/profile_signout_button"
-            android:textColor="@color/white"
-            android:layout_marginVertical="10dp"
+            android:textColor="@color/black"
+            android:layout_marginVertical="5dp"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/rounded"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Log Out"/>

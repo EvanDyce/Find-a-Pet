@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PetTinder</string>
+    <string name="app_name">Pet Tinder</string>
 
     <string name="rangeTextView">Search Radius</string>
     <string name="selectProvincePrompt">Select Province</string>

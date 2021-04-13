@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+<!--    Theme.AppCompat.Light-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/purple</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-    </style>
 
+<!--        This is teh styling for action bar-->
+        <item name="actionBarStyle">@style/MyActionBar</item>
+    </style>
 
     <style name="Normal_Margin_Style" parent="AppTheme">
         <item name="android:layout_marginRight">@dimen/margin_right_16</item>
@@ -22,5 +25,15 @@
 
     <style name="Font_family_regular" parent="AppTheme">
         <item name="android:fontFamily">sans-serif-regular</item>
+    </style>
+
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="background">@color/yellow</item>
+        <item name="titleTextStyle">@style/MyActionBarTitle</item>
+    </style>
+
+    <style name="MyActionBarTitle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textAlignment">center</item>
     </style>
 </resources>

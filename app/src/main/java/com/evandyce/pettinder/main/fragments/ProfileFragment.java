@@ -166,6 +166,7 @@ public class ProfileFragment extends Fragment {
         TextView currentLiked = view.findViewById(R.id.profile_currentliked_tv);
         TextView totalLiked = view.findViewById(R.id.profile_totalliked_tv);
 
+
         mDatabase.collection("users").document(user.getEmail())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
