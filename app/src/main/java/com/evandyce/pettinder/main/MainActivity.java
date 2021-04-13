@@ -14,6 +14,8 @@ import android.view.MenuItem;
 
 import com.evandyce.pettinder.Login;
 import com.evandyce.pettinder.R;
+import com.evandyce.pettinder.api.APIConnector;
+import com.evandyce.pettinder.cards.Animal;
 import com.evandyce.pettinder.main.fragments.FavoritesFragment;
 import com.evandyce.pettinder.main.fragments.ProfileFragment;
 import com.evandyce.pettinder.main.fragments.SearchFragment;
@@ -26,7 +28,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    public static String email;
+    public static String name;
+    public static int swipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_logout_24px);
 
+        // create new apiconnector in order to generate the new tokens
+        new APIConnector(this).generateNewToken();
+
+
+        // set get the values from the database and set teh ones that need to be set
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -57,6 +72,21 @@ public class MainActivity extends AppCompatActivity {
                             DocumentSnapshot document = task.getResult();
                             if(document.exists()) {
                                 Log.d("MAIN", "Liked Pets retrieved successfully");
+                                List<HashMap<String, Object>> animalsHashMap = (List<HashMap<String, Object>>) document.get("liked_list");
+
+                                for (HashMap<String, Object> map : animalsHashMap) {
+                                    String name = (String) map.get("name");
+                                    String location = (String) map.get("location");
+                                    String email = (String) map.get("email");
+                                    String age = (String) map.get("age");
+                                    String imageURL = (String) map.get("imageUrl");
+                                    String petfinderURL = (String) map.get("petfinderURL");
+                                    String description = (String) map.get("description");
+
+                                    FavoritesFragment.animalList.add(new Animal(name, location, email, age, imageURL, petfinderURL, description));
+                                }
+//                                FavoritesFragment.animalList = (ArrayList<HashMap()>) document.get("liked_list");
+//                                System.out.println(((List<HashMap<String, Object>>)document.get("liked_list")).get(0).get("name"));
                             } else {
                                 Log.d("MAIN", "No document exists");
                             }

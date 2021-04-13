@@ -181,7 +181,7 @@ public class SignUp extends AppCompatActivity {
         userData.put("name", name);
         userData.put("email", email);
         userData.put("swipes", 0);
-        userData.put("liked_count", 0);
+        userData.put("total_liked", 0);
         userData.put("liked_list", new ArrayList<Animal>());
 
         db.collection("users").document(email)

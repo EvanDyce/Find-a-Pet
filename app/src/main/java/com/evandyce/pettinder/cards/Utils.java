@@ -73,8 +73,44 @@ public class Utils {
                 .show();
     }
 
+    public static void popupMessageFailure(Context context, String message){
+        Activity activity = (Activity) context;
+        new AestheticDialog.Builder(activity, DialogStyle.FLAT, DialogType.ERROR)
+                .setTitle("Error")
+                .setMessage(message)
+                .setCancelable(false)
+                .setDarkMode(false)
+                .setGravity(Gravity.CENTER)
+                .setAnimation(DialogAnimation.SHRINK)
+                .setOnClickListener(new OnDialogClickListener() {
+                    @Override
+                    public void onClick(AestheticDialog.Builder builder) {
+                        builder.dismiss();
+                    }
+                })
+                .show();
+    }
+
     public static void popupMessageSuccess(Activity mActivity, String message) {
         new AestheticDialog.Builder(mActivity, DialogStyle.FLAT, DialogType.SUCCESS)
+                .setTitle("Success")
+                .setMessage(message)
+                .setCancelable(false)
+                .setDarkMode(false)
+                .setGravity(Gravity.CENTER)
+                .setAnimation(DialogAnimation.SHRINK)
+                .setOnClickListener(new OnDialogClickListener() {
+                    @Override
+                    public void onClick(AestheticDialog.Builder builder) {
+                        builder.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    public static void popupMessageSuccess(Context context, String message) {
+        Activity activity = (Activity) context;
+        new AestheticDialog.Builder(activity, DialogStyle.FLAT, DialogType.SUCCESS)
                 .setTitle("Success")
                 .setMessage(message)
                 .setCancelable(false)
@@ -108,7 +144,7 @@ public class Utils {
                             if(document.exists()) {
                                 Log.d("UTILS", "Document found successfully");
                                 Long swipeCount = (Long) document.get("swipes");
-                                Long totalLiked = (Long) document.get("liked_count");
+                                Long totalLiked = (Long) document.get("total_liked");
                                 String name = (String) document.get("name");
                                 setData(userReference, user, swipeCount, totalLiked, name);
                             } else {
@@ -126,7 +162,7 @@ public class Utils {
         data.put("name", name);
         data.put("email", user.getEmail());
         data.put("swipes", swipeCount + User.getCounter());
-        data.put("liked_count", totalLiked + FavoritesFragment.animalList.size());
+        data.put("total_liked", totalLiked + FavoritesFragment.animalList.size());
         data.put("liked_list", FavoritesFragment.animalList);
         doc.set(data)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

@@ -21,6 +21,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.evandyce.pettinder.cards.Animal;
+import com.evandyce.pettinder.cards.Utils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -58,7 +59,7 @@ public class APIConnector {
     public APIConnector(Context context) {
         this.context = context;
         animalList = new ArrayList<>();
-        generateNewToken();
+//        generateNewToken();
     }
 
     // interface for callback functions
@@ -77,7 +78,6 @@ public class APIConnector {
         // adds the parameters to the API request
         String url = paramaterizeBaseURL(city, range, province);
 
-
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -89,7 +89,7 @@ public class APIConnector {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (error instanceof NetworkError || error instanceof AuthFailureError || error instanceof NoConnectionError || error instanceof TimeoutError) {
-                    Toast.makeText(context, "Cannot connect to internet. If you have a connection please exit and restart the app.", Toast.LENGTH_SHORT).show();
+                    Utils.popupMessageFailure(context, "Cannot connect to the internet");
                     return;
                 } else if(error instanceof ServerError) {
                     Toast.makeText(context, "Server could not be found. Please try again later", Toast.LENGTH_SHORT).show();
@@ -175,7 +175,6 @@ public class APIConnector {
                 description = dog.getString("description");
                 if (description.length() == 0) {    description = "No description available";   }
 
-                System.out.println(dog);
                 // make new dog instance and add to the list
                 animalList.add(new Animal(name, city, email, age, imageURL, petfinderURL, description));
             }
@@ -229,7 +228,7 @@ public class APIConnector {
     Makes a new token and assigns it to the static variable new_token
     makes a post request to the API and gets the new token back
      */
-    private void generateNewToken() {
+    public void generateNewToken() {
         DocumentReference documentReference = db.document("keys/ar6S9VvAdD5z6qCkE57X");
 
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {

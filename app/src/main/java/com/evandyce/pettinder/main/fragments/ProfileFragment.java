@@ -174,12 +174,13 @@ public class ProfileFragment extends Fragment {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
+
                                 Log.d(TAG, "DocumentSnapshot Retrieved Successfully: "+ document.getData());
                                 email.setText(document.get("email").toString());
                                 name.setText(document.get("name").toString());
                                 swipeCount.setText(String.valueOf((Long) document.get("swipes")));
                                 currentLiked.setText(String.valueOf(FavoritesFragment.animalList.size()));
-                                totalLiked.setText(String.valueOf((Long) document.get("liked_count")));
+                                totalLiked.setText(String.valueOf((Long) document.get("total_liked")));
 
                             } else {
                                 Log.d(TAG, "No such document");
