@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.evandyce.pettinder.cards.Animal;
+import com.evandyce.pettinder.cards.Utils;
 import com.evandyce.pettinder.main.fragments.FavoritesFragment;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
         TextView animalDescription;
         ImageView animalImage;
         Button seeMore;
+        Button contact;
         ImageButton remove;
 
         AnimalViewHolder(View itemView) {
@@ -46,7 +48,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
             animalContact = (TextView)itemView.findViewById(R.id.cardview_contact);
             animalDescription = (TextView)itemView.findViewById(R.id.cardview_description_content);
             animalImage = (ImageView)itemView.findViewById(R.id.cardview_image);
+
             seeMore = (Button)itemView.findViewById(R.id.see_more_button);
+            contact = (Button) itemView.findViewById(R.id.contact_button);
             remove = (ImageButton) itemView.findViewById(R.id.remove_card_rv);
         }
     }
@@ -87,7 +91,25 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
         holder.seeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(animals.get(position).getPetfinderURL())));
+                String url = animals.get(position).getPetfinderURL();
+                if (url == null || url.length() == 0) {
+                    Utils.popupMessageFailure(context, "No additional information is available for this dog.");
+                    return;
+                }
+                v.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            }
+        });
+
+        holder.contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = animals.get(position).getEmail();
+                String name = animals.get(position).getName();
+                if (email == null || email.length() == 0) {
+                    Utils.popupMessageFailure(context, "No contact information for this dog.");
+                    return;
+                }
+                v.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + email + "?subject=Inquiry About " + name)));
             }
         });
 

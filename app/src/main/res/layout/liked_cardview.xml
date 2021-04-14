@@ -76,26 +76,64 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="@dimen/size_10">
 
-            <Button
-                android:id="@+id/see_more_button"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_centerHorizontal="true"
-                android:text="See More" />
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/remove_card_rv"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/ic_garbage"/>
+                <Button
+                    android:id="@+id/contact_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginHorizontal="@dimen/size_10"
+                    android:text="Contact" />
+
+                <Button
+                    android:id="@+id/see_more_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="See More"
+                    android:layout_marginHorizontal="@dimen/size_25"
+                    android:textColor="@color/black" />
+
+                <ImageButton
+                    android:id="@+id/remove_card_rv"
+                    android:layout_width="@dimen/size_50"
+                    android:layout_height="@dimen/size_50"
+                    android:layout_marginLeft="@dimen/size_10"
+                    android:background="@drawable/ic_garbage"/>
+            </LinearLayout>
 
         </RelativeLayout>
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="@dimen/size_10">-->
+
+<!--            <Button-->
+<!--                android:id="@+id/see_more_button"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:text="See More" />-->
+<!--            -->
+
+<!--            <ImageButton-->
+<!--                android:id="@+id/remove_card_rv"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:background="@drawable/ic_garbage"/>-->
+
+<!--        </RelativeLayout>-->
 
 
 

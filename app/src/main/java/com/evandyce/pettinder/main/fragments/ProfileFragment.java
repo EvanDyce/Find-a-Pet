@@ -152,14 +152,12 @@ public class ProfileFragment extends Fragment {
         setProfileValues(view);
     }
 
-
     private void setProfileValues(View view) {
         mAuth = FirebaseAuth.getInstance();
         mAuth.setLanguageCode("en");
         mDatabase = FirebaseFirestore.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
-        ImageView profilePicture = view.findViewById(R.id.profile_profilepic_image);
         TextView name = view.findViewById(R.id.profile_name_tv);
         TextView email = view.findViewById(R.id.profile_email_tv);
 
@@ -178,7 +176,7 @@ public class ProfileFragment extends Fragment {
                             if (document.exists()) {
 
                                 Log.d(TAG, "DocumentSnapshot Retrieved Successfully: "+ document.getData());
-//                                email.setText(document.get("email").toString());
+                                email.setText(document.get("email").toString());
                                 name.setText(document.get("name").toString());
                                 swipeCount.setText(String.valueOf((Long) document.get("swipes")));
                                 currentLiked.setText(String.valueOf(FavoritesFragment.animalList.size()));

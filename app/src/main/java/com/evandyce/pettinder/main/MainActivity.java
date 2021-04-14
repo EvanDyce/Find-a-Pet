@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d("MAIN", "Liked Pets retrieved successfully");
 
                                 List<HashMap<String, Object>> animalsHashMap = (List<HashMap<String, Object>>) document.get("liked_list");
+                                FavoritesFragment.animalList.clear();
 
                                 for (HashMap<String, Object> map : animalsHashMap) {
                                     String name = (String) map.get("name");

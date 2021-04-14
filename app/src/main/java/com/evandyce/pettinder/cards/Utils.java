@@ -19,6 +19,7 @@ import com.evandyce.pettinder.R;
 import com.evandyce.pettinder.User;
 import com.evandyce.pettinder.main.MainActivity;
 import com.evandyce.pettinder.main.fragments.FavoritesFragment;
+import com.evandyce.pettinder.main.fragments.ProfileFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -184,4 +185,5 @@ public class Utils {
                     }
                 });
     }
+
 }
