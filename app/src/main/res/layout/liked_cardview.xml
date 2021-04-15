@@ -112,30 +112,5 @@
 
         </RelativeLayout>
 
-<!--        <RelativeLayout-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="@dimen/size_10">-->
-
-<!--            <Button-->
-<!--                android:id="@+id/see_more_button"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:layout_centerHorizontal="true"-->
-<!--                android:text="See More" />-->
-<!--            -->
-
-<!--            <ImageButton-->
-<!--                android:id="@+id/remove_card_rv"-->
-<!--                android:layout_width="50dp"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_alignParentRight="true"-->
-<!--                android:background="@drawable/ic_garbage"/>-->
-
-<!--        </RelativeLayout>-->
-
-
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>
