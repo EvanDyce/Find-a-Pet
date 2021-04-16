@@ -141,10 +141,12 @@ public class ProfileFragment extends Fragment {
                 passwordResetDialog.show();
             }
         });
+
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Login.logout();
+//                Login.logout();
+                Utils.setDataLogOut();
                 mActivity.startActivity(new Intent(mActivity, Login.class));
             }
         });

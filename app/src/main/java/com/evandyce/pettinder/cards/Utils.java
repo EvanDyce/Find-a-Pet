@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.evandyce.pettinder.Login;
 import com.evandyce.pettinder.R;
 import com.evandyce.pettinder.User;
 import com.evandyce.pettinder.main.MainActivity;
@@ -137,6 +138,11 @@ public class Utils {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+        if (user == null || db == null) {
+            Log.d("UpdateOnStop", "User or db is null");
+            return;
+        }
+
         DocumentReference userReference = db.collection("users").document(user.getEmail());
         Log.d("UTILS", "Document Reference Found");
 
@@ -186,4 +192,41 @@ public class Utils {
                 });
     }
 
+    public static void setDataLogOut() {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        if (user == null || db == null) {
+            Log.d("UpdateOnStop", "User or db is null");
+            return;
+        }
+
+        DocumentReference userReference = db.collection("users").document(user.getEmail());
+        Log.d("UTILS", "Document Reference Found");
+
+        userReference
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if(document.exists()) {
+                                Log.d("UTILS", "Document found successfully");
+                                Long swipeCount = (Long) document.get("swipes");
+                                Long totalLiked = (Long) document.get("total_liked");
+                                String name = (String) document.get("name");
+                                setData(userReference, user, swipeCount, totalLiked, name);
+                            } else {
+                                Log.e("UTILS", "Document does not exist");
+                            }
+                        } else {
+                            Log.e("UTILS", "Task was not successful");
+                        }
+                    }
+                });
+
+        Login.logout();
+    }
 }

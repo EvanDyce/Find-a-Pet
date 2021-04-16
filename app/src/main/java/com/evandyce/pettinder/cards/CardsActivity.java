@@ -82,6 +82,7 @@ public class CardsActivity extends AppCompatActivity {
                         .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view));
 
         animalList = APIConnector.getAnimalList();
+        Log.e("ERROR", animalList.toString());
         // for each dog in the list add the card to the view
         for(Animal animal : animalList) {
             mSwipeView.addView(new TinderCard(mContext, animal, mSwipeView));

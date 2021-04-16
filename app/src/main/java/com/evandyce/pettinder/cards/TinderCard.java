@@ -110,6 +110,7 @@ public class TinderCard {
     public void onSwipeIn(){
         Log.d("EVENT", "onSwipedIn");
         FavoritesFragment.animalList.add(CardsActivity.getAnimalFromIndex(index));
+        Log.d("TinderCard", FavoritesFragment.animalList.toString());
         index++;
         User.incrementCounter();
         User.incrementLikedCounter();

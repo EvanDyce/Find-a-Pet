@@ -36,6 +36,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private boolean firstTime = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,38 +64,43 @@ public class MainActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        db.collection("users").document(user.getEmail())
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if(task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if(document.exists()) {
-                                Log.d("MAIN", "Liked Pets retrieved successfully");
+        if (firstTime) {
+            FavoritesFragment.animalList.clear();
+            db.collection("users").document(user.getEmail())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if(task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if(document.exists()) {
+                                    Log.d("MAIN", "Liked Pets retrieved successfully");
 
-                                List<HashMap<String, Object>> animalsHashMap = (List<HashMap<String, Object>>) document.get("liked_list");
-                                FavoritesFragment.animalList.clear();
+                                    List<HashMap<String, Object>> animalsHashMap = (List<HashMap<String, Object>>) document.get("liked_list");
 
-                                for (HashMap<String, Object> map : animalsHashMap) {
-                                    String name = (String) map.get("name");
-                                    String location = (String) map.get("location");
-                                    String email = (String) map.get("email");
-                                    String age = (String) map.get("age");
-                                    String imageURL = (String) map.get("imageUrl");
-                                    String petfinderURL = (String) map.get("petfinderURL");
-                                    String description = (String) map.get("description");
+                                    for (HashMap<String, Object> map : animalsHashMap) {
+                                        String name = (String) map.get("name");
+                                        String location = (String) map.get("location");
+                                        String email = (String) map.get("email");
+                                        String age = (String) map.get("age");
+                                        String imageURL = (String) map.get("imageUrl");
+                                        String petfinderURL = (String) map.get("petfinderURL");
+                                        String description = (String) map.get("description");
 
-                                    FavoritesFragment.animalList.add(new Animal(name, location, email, age, imageURL, petfinderURL, description));
+                                        FavoritesFragment.animalList.add(new Animal(name, location, email, age, imageURL, petfinderURL, description));
+                                    }
+
+                                } else {
+                                    Log.d("MAIN", "No document exists");
                                 }
                             } else {
-                                Log.d("MAIN", "No document exists");
+                                Log.d("MAIN", "Task failed with" + task.getException());
                             }
-                        } else {
-                            Log.d("MAIN", "Task failed with" + task.getException());
                         }
-                    }
-                });
+                    });
+
+            firstTime = false;
+        }
 
     }
 
