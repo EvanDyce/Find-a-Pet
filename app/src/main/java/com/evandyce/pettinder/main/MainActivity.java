@@ -36,7 +36,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private boolean firstTime = true;
+    public static boolean firstTime = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (firstTime) {
             FavoritesFragment.animalList.clear();
+            Log.wtf("Clear", "animallist is cleared");
             db.collection("users").document(user.getEmail())
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
