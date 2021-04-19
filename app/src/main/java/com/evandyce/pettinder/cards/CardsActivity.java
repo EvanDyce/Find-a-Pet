@@ -52,6 +52,10 @@ public class CardsActivity extends AppCompatActivity {
         // reset the index tracker for favorites to 0
         TinderCard.setIndex(0);
 
+        // reset user count values to update db
+        User.counter = 0;
+        User.likedCounter = 0;
+
         // initialize view and context
         mSwipeView = (SwipePlaceHolderView)findViewById(R.id.swipeView);
         mContext = getApplicationContext();
@@ -89,13 +93,13 @@ public class CardsActivity extends AppCompatActivity {
         }
         Log.d(TAG, "Animals added to swipeview");
 
-        // adds the end card that shows that no more are around
+/*        // adds the end card that shows that no more are around
         Animal end = new Animal();
         end.setImageUrl("https://www.liveabout.com/thmb/uvBVFWHAjpClFQ18Sink0O8_9j0=/641x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/yes-this-is-dog-56a4f6725f9b58b7d0da1af4.png");
         end.setName("There are no more pets available at this location");
         end.setAge("To view more increase the range or search for a new city");
         end.setLocation("");
-        mSwipeView.addView(new TinderCard(mContext, end, mSwipeView));
+        mSwipeView.addView(new TinderCard(mContext, end, mSwipeView));*/
 
         // listeners for accept, reject, and undo buttons
         findViewById(R.id.rejectBtn).setOnClickListener(new View.OnClickListener() {
@@ -129,7 +133,7 @@ public class CardsActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Utils.updateDatabaseOnStop();
+        Utils.updateDatabaseOnStop("Cards");
     }
 
     public static Animal getAnimalFromIndex(int index) {

@@ -106,81 +106,81 @@
         </LinearLayout>
 
 <!--     Select Animal Type -->
-        <LinearLayout
-            android:id="@+id/searchFragment_animalTypeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/searchFragment_animalTypeLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
 
-            <TextView
-                android:id="@+id/tv_selectAnimalType"
-                android:layout_width="wrap_content"
-                android:layout_height="37dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/animal_type"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/dark_grey"/>
+<!--            <TextView-->
+<!--                android:id="@+id/tv_selectAnimalType"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="37dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/animal_type"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="@color/dark_grey"/>-->
 
-<!--            <Space-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="10dp"/>-->
+<!--&lt;!&ndash;            <Space&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="10dp"/>&ndash;&gt;-->
 
-            <org.angmarch.views.NiceSpinner
-                android:id="@+id/animal_type_spinner"
-                android:layout_width="@dimen/size_150"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:entries="@array/animal_type"
-                app:textTint="@color/black"
-                android:layout_gravity="center"
-                android:textSize="@dimen/text_20"
-                android:lines="1"
-                android:textAlignment="center"
-                />
-        </LinearLayout>
+<!--            <org.angmarch.views.NiceSpinner-->
+<!--                android:id="@+id/animal_type_spinner"-->
+<!--                android:layout_width="@dimen/size_150"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="16dp"-->
+<!--                app:entries="@array/animal_type"-->
+<!--                app:textTint="@color/black"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:textSize="@dimen/text_20"-->
+<!--                android:lines="1"-->
+<!--                android:textAlignment="center"-->
+<!--                />-->
+<!--        </LinearLayout>-->
 
 <!--     Animal Age Spinner-->
-        <LinearLayout
-            android:id="@+id/searchFragment_animalAgeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/searchFragment_animalAgeLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
 
-            <TextView
-                android:id="@+id/tv_selectAnimalAge"
-                android:layout_width="wrap_content"
-                android:layout_height="37dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/age"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/dark_grey"/>
+<!--            <TextView-->
+<!--                android:id="@+id/tv_selectAnimalAge"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="37dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/age"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="@color/dark_grey"/>-->
 
-<!--            <Space-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="10dp"/>-->
+<!--&lt;!&ndash;            <Space&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="10dp"/>&ndash;&gt;-->
 
-            <org.angmarch.views.NiceSpinner
-                android:id="@+id/animal_age_spinner"
-                android:layout_width="@dimen/size_150"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:entries="@array/animal_ages"
-                app:textTint="@color/black"
-                android:layout_gravity="center"
-                android:textSize="@dimen/text_20"
-                android:lines="1"
-                android:textAlignment="center"
-                />
-        </LinearLayout>
+<!--            <org.angmarch.views.NiceSpinner-->
+<!--                android:id="@+id/animal_age_spinner"-->
+<!--                android:layout_width="@dimen/size_150"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="16dp"-->
+<!--                app:entries="@array/animal_ages"-->
+<!--                app:textTint="@color/black"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:textSize="@dimen/text_20"-->
+<!--                android:lines="1"-->
+<!--                android:textAlignment="center"-->
+<!--                />-->
+<!--        </LinearLayout>-->
 
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_10"/>
+            android:layout_height="@dimen/size_150"/>
 
         <Button
             android:id="@+id/searchFragment_searchButton"

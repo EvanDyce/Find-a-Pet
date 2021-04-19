@@ -14,8 +14,8 @@ public class User {
     private String email;
     private List<Animal> liked;
 
-    private static int counter = 0;
-    private static int likedCounter = 0;
+    public static int counter = 0;
+    public static int likedCounter = 0;
 
     public User (String userID, String name, String email, int count, List<Animal> liked) {
         this.userID = userID;

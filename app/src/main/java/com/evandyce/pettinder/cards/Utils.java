@@ -133,10 +133,11 @@ public class Utils {
                 .show();
     }
 
-    public static void updateDatabaseOnStop() {
+    public static void updateDatabaseOnStop(String tag) {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 
         if (user == null || db == null) {
             Log.d("UpdateOnStop", "User or db is null");
@@ -145,6 +146,32 @@ public class Utils {
 
         DocumentReference userReference = db.collection("users").document(user.getEmail());
         Log.d("UTILS", "Document Reference Found");
+
+        if (tag.equals("Main")) {
+            updateList(userReference);
+            return;
+//            userReference
+//                    .get()
+//                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                            if(task.isSuccessful()) {
+//                                DocumentSnapshot document = task.getResult();
+//                                if(document.exists()) {
+//                                    Log.d("UTILS", "Document found successfully");
+//                                    Long swipeCount = (Long) document.get("swipes");
+//                                    Long totalLiked = (Long) document.get("total_liked");
+//                                    String name = (String) document.get("name");
+//                                    setData(userReference, user, swipeCount, totalLiked, name);
+//                                } else {
+//                                    Log.e("UTILS", "Document does not exist");
+//                                }
+//                            } else {
+//                                Log.e("UTILS", "Task was not successful");
+//                            }
+//                        }
+//                    });
+        }
 
         userReference
                 .get()
@@ -175,7 +202,7 @@ public class Utils {
         data.put("name", name);
         data.put("email", user.getEmail());
         data.put("swipes", swipeCount + User.getCounter());
-        data.put("total_liked", totalLiked + FavoritesFragment.animalList.size());
+        data.put("total_liked", totalLiked + User.likedCounter);
         data.put("liked_list", FavoritesFragment.animalList);
         doc.set(data)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -188,6 +215,25 @@ public class Utils {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w("UTILS", "Error writing to document", e);
+                    }
+                });
+    }
+
+    private static void updateList(DocumentReference doc) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("liked_list", FavoritesFragment.animalList);
+
+        doc.update(data)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("Utils", "Document updated successfully");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("Utils", "Error updating document", e);
                     }
                 });
     }
