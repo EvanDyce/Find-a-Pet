@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.evandyce.pettinder.main.MainActivity;
+import com.evandyce.pettinder.main.fragments.FavoritesFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -64,6 +65,12 @@ public class Login extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // reset values to default
+        User.likedCounter = 0;
+        User.counter = 0;
+        FavoritesFragment.animalList.clear();
+        MainActivity.firstTime = true;
 
         mButtCreateAccount = (Button)findViewById(R.id.button_create_account);
         mButtLogin = (Button)findViewById(R.id.button_login);
@@ -164,7 +171,8 @@ public class Login extends Activity {
 
     private void signIn(String email, String password) {
         if (email == null || email.length() == 0 || password == null || password.length() == 0) {
-            Toast.makeText(this, "Please enter a valid username and/or password.", Toast.LENGTH_SHORT).show();
+            popupMessageFailure("Please enter a valid username and/or password.");
+//            Toast.makeText(this, "Please enter a valid username and/or password.", Toast.LENGTH_SHORT).show();
             return;
         }
 

@@ -78,6 +78,14 @@ public class APIConnector {
         // adds the parameters to the API request
         String url = paramaterizeBaseURL(city, range, province);
 
+        if (city.length() == 0) {
+            Utils.popupMessageFailure(context, "Please enter a city name.");
+            return;
+        } else if (range.length() == 0 || range.equals("0")) {
+            Utils.popupMessageFailure(context, "Invalid range selected.");
+            return;
+        }
+
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -92,10 +100,10 @@ public class APIConnector {
                     Utils.popupMessageFailure(context, "Cannot connect to the internet");
                     return;
                 } else if(error instanceof ServerError) {
-                    Toast.makeText(context, "Server could not be found. Please try again later", Toast.LENGTH_SHORT).show();
+                    Utils.popupMessageFailure(context, "Server could not be found. Please try again later.");
                     return;
                 } else if (error instanceof ParseError) {
-                    Toast.makeText(context, "Parsing error. Please try again later", Toast.LENGTH_SHORT).show();
+                    Utils.popupMessageFailure(context, "Parsing error. Please try again later.");
                     return;
                 }
                 // if the error is because the token is unauthorized then it passes the message back and generates a new token
@@ -163,7 +171,8 @@ public class APIConnector {
                 if (tempArray.length() > 0) {
                     imageURL = tempArray.getJSONObject(0).getString("large");
                 } else {
-                    imageURL = "https://www.escapeauthority.com/wp-content/uploads/2116/11/No-image-found.jpg";
+                    continue;
+//                    imageURL = "https://www.escapeauthority.com/wp-content/uploads/2116/11/No-image-found.jpg";
                 }
 
                 age = dog.getString("age");

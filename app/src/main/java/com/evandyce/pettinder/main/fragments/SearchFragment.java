@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,6 +24,7 @@ import androidx.fragment.app.FragmentActivity;
 import com.evandyce.pettinder.cards.CardsActivity;
 import com.evandyce.pettinder.api.APIConnector;
 import com.evandyce.pettinder.R;
+import com.evandyce.pettinder.cards.Utils;
 
 import org.angmarch.views.NiceSpinner;
 
@@ -60,9 +63,27 @@ public class SearchFragment extends Fragment {
 
         // initializes all of the instance variables with the proper thing from the view
         EditText et_cityName = view.findViewById(R.id.et_enterCityName);
-        EditText et_range = view.findViewById(R.id.et_maxRange);
+        SeekBar sb_range = view.findViewById(R.id.rangeSlider);
+        TextView tv_rangeValue = view.findViewById(R.id.rangeSliderText);
+//        EditText et_range = view.findViewById(R.id.et_maxRange);
         NiceSpinner spinner_provinces = view.findViewById(R.id.provinces_spinner);
         Button search = view.findViewById(R.id.searchFragment_searchButton);
+
+        sb_range.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                tv_rangeValue.setText(String.valueOf(progress) + " km");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(view.getContext(), R.array.province_list_full, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -75,10 +96,10 @@ public class SearchFragment extends Fragment {
                 // does the actual query
                 // uses APIConnection object and passes string from text fields and spinner
                 // VolleyResponseListener is for callbacks and when response is received the methods are called with params from APIConnector implementation
-                db.getDataFromAPI(et_cityName.getText().toString(), et_range.getText().toString(), spinner_provinces.getSelectedItem().toString(), new APIConnector.VolleyResponseListener() {
+                db.getDataFromAPI(et_cityName.getText().toString(), String.valueOf(sb_range.getProgress()), spinner_provinces.getSelectedItem().toString(), new APIConnector.VolleyResponseListener() {
                     @Override
                     public void onError(String message) {
-                        Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show();
+                        Utils.popupMessageFailure(mActivity, message);
                     }
 
                     @Override
