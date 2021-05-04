@@ -3,6 +3,11 @@ package com.evandyce.pettinder.cards;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+
+/**
+ * Class for each animal
+ * Stores the necessary information for each
+ */
 public class Animal {
     private String email;
     private String petfinderURL;

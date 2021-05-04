@@ -36,6 +36,8 @@ import com.evandyce.pettinder.R;
 @Layout(R.layout.tinder_card_view)
 public class TinderCard {
 
+    // decorators are for the swipecards DO NOT CHANGE
+
     @View(R.id.profileImageView)
     ImageView profileImageView;
 
@@ -61,6 +63,8 @@ public class TinderCard {
         mSwipeView = swipeView;
     }
 
+    // called when the next card is up on display
+    // starts a new thread and loads image, sets text, etc.
     @Resolve
     public void onResolved(){
         Thread thread = new Thread();
@@ -90,15 +94,14 @@ public class TinderCard {
     @Click(R.id.profileImageView)
     public void onClick(){
         Log.d("EVENT", "profileImageView click");
-//        mSwipeView.addView(this);
     }
 
+    // when a card is swiped left
     @SwipeOut
     public void onSwipedOut(){
         Log.d("EVENT", "onSwipedOut");
         index++;
         User.incrementCounter();
-//        mSwipeView.addView(this);
     }
 
     @SwipeCancelState
@@ -106,6 +109,7 @@ public class TinderCard {
         Log.d("EVENT", "onSwipeCancelState");
     }
 
+    // when a card is swiped right
     @SwipeIn
     public void onSwipeIn(){
         Log.d("EVENT", "onSwipedIn");

@@ -93,14 +93,6 @@ public class CardsActivity extends AppCompatActivity {
         }
         Log.d(TAG, "Animals added to swipeview");
 
-/*        // adds the end card that shows that no more are around
-        Animal end = new Animal();
-        end.setImageUrl("https://www.liveabout.com/thmb/uvBVFWHAjpClFQ18Sink0O8_9j0=/641x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/yes-this-is-dog-56a4f6725f9b58b7d0da1af4.png");
-        end.setName("There are no more pets available at this location");
-        end.setAge("To view more increase the range or search for a new city");
-        end.setLocation("");
-        mSwipeView.addView(new TinderCard(mContext, end, mSwipeView));*/
-
         // listeners for accept, reject, and undo buttons
         findViewById(R.id.rejectBtn).setOnClickListener(new View.OnClickListener() {
             @Override

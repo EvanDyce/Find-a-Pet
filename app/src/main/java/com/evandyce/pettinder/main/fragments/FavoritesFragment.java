@@ -54,18 +54,26 @@ public class FavoritesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // gets the two possible views. One is recycler view and the other is get swiping message
         rv = (RecyclerView) view.findViewById(R.id.recycler_view);
         emptyView = (TextView) view.findViewById(R.id.empty_rv);
 
+//        makes layout manager and sets the recycler view layout manager
         LinearLayoutManager llm = new LinearLayoutManager(mActivity);
         rv.setLayoutManager(llm);
 
+        // sets teh adapter
         RVAdapter adapter = new RVAdapter(mActivity, animalList);
         rv.setAdapter(adapter);
 
         emptyList(animalList);
     }
 
+    /**
+     * determines which fragment to show based on the size of the animallist
+     * if it is empty then it shows the get swiping text, else it just shows the list
+     * @param animalList current animalList
+     */
     public static void emptyList(List<Animal> animalList) {
         if (animalList.isEmpty()) {
             rv.setVisibility(View.GONE);

@@ -8,15 +8,12 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,10 +22,6 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.evandyce.pettinder.Login;
 import com.evandyce.pettinder.R;
-import com.evandyce.pettinder.User;
-import com.evandyce.pettinder.api.APIConnector;
-import com.evandyce.pettinder.cards.Animal;
-import com.evandyce.pettinder.cards.TinderCard;
 import com.evandyce.pettinder.cards.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -36,19 +29,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.thecode.aestheticdialogs.AestheticDialog;
-import com.thecode.aestheticdialogs.DialogAnimation;
-import com.thecode.aestheticdialogs.DialogStyle;
-import com.thecode.aestheticdialogs.DialogType;
-import com.thecode.aestheticdialogs.OnDialogClickListener;
-
-import org.w3c.dom.Text;
-
-import java.util.List;
-import java.util.Map;
 
 import static com.evandyce.pettinder.cards.Utils.popupMessageSuccess;
 import static com.evandyce.pettinder.cards.Utils.popupMessageFailure;
@@ -85,9 +67,16 @@ public class ProfileFragment extends Fragment {
         Button logOut = view.findViewById(R.id.profile_signout_button);
         Button changePassword = view.findViewById(R.id.profile_resetpassword_button);
 
+
+        /**
+         *  sets the onclicklistener for the reset password button on fragment
+         * opens a dialog that accepts and email and sends the firebase password reset email to that email.
+         * Todo: Update this function to another dialog that just sends it to the users registered email for convenience and security
+         **/
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // sets the dialog settings for the popup
                 EditText resetMail = new EditText(mActivity);
                 Drawable style = getResources().getDrawable(R.drawable.custom_input, v.getContext().getTheme());
                 resetMail.setBackground(style);
@@ -100,6 +89,7 @@ public class ProfileFragment extends Fragment {
                         .setMessage("Please enter your email to receive reset link.")
                         .setView(resetMail);
 
+                // positive button setup
                 passwordResetDialog.setPositiveButton("Send", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -131,6 +121,7 @@ public class ProfileFragment extends Fragment {
                     }
                 });
 
+                // negative button setup
                 passwordResetDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -154,7 +145,13 @@ public class ProfileFragment extends Fragment {
         setProfileValues(view);
     }
 
+    /**
+     * update the values on the screen
+     * retrieves the values from the database and updates when the view is created
+     * @param view fragment is passed as view
+     */
     private void setProfileValues(View view) {
+
         mAuth = FirebaseAuth.getInstance();
         mAuth.setLanguageCode("en");
         mDatabase = FirebaseFirestore.getInstance();

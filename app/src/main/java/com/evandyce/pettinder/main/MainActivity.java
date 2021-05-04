@@ -64,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+
+        // firstTime is a flag to check if it is the users first time loading the main activity this session
+        // if it is the first time it clears the current list and then reloads it with the information from the database. This helps to stop the multiplying list problem.
         if (firstTime) {
             FavoritesFragment.animalList.clear();
             Log.wtf("Clear", "animallist is cleared");
@@ -135,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
             };
 
 
+    // not called I dont think. Too scared to remove
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Login.logout();
@@ -142,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // updates the database when the main activity stops
     @Override
     protected void onStop() {
         super.onStop();

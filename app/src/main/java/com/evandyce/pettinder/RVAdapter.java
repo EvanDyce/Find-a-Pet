@@ -29,6 +29,9 @@ import java.util.List;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> {
 
+    /**
+     * class for each object inside of the recyclerview on liked fragment
+     */
     public static class AnimalViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
         TextView animalName;
@@ -68,6 +71,13 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
         return this.animals.size();
     }
 
+    /**
+     * called when teh viewholder is inflated into the fragment
+     *
+     * @param parent viewgroup for the layout to be inflated into
+     * @param viewType int type of view
+     * @return returns a new animal view holder. The layout for each dog in liked.
+     */
     @NonNull
     @Override
     public AnimalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -76,8 +86,16 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
         return avh;
     }
 
+    /**
+     * called when each animal is bound to a animal view holder and puts them in the recycler view
+     *
+     * @param holder AnimalViewHolder for the animal in question. Represents the whole card. Has attributes for the buttons and imageview
+     * @param position position of the animal in the list. Used to remove proper view holder and update the list
+     */
     @Override
     public void onBindViewHolder(@NonNull AnimalViewHolder holder, int position) {
+
+        // on click for the delete button on each list.
         holder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +106,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
             }
         });
 
+        // on lick for teh see more button
+        // opens the url link to the petfinder url
         holder.seeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +120,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
             }
         });
 
+        // on click for the contact button
+        // opens a mailto for the email that the api retrieved
         holder.contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,14 +135,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
             }
         });
 
-
-//        holder.animalImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showImageDialog(animals.get(position).getImageUrl());
-//            }
-//        });
-
+        // sets the information for each of the cards in the recycler view
         holder.animalName.setText(animals.get(position).getName());
         holder.animalLocation.setText(animals.get(position).getLocation());
         holder.animalContact.setText(animals.get(position).getEmail());
@@ -131,23 +146,5 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
-    }
-
-    private void showImageDialog(String url) {
-        Dialog builder = new Dialog(context);
-        builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        builder.getWindow().setBackgroundDrawable(
-                new ColorDrawable(Color.TRANSPARENT)
-        );
-
-        ImageView imageView = new ImageView(context);
-        Glide.with(context)
-                .load(url)
-                .into(imageView);
-
-        builder.addContentView(imageView, new RelativeLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
-        builder.show();
     }
 }

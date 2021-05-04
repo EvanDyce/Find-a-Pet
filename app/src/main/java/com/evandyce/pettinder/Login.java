@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 
+import com.evandyce.pettinder.cards.Utils;
 import com.evandyce.pettinder.main.MainActivity;
 import com.evandyce.pettinder.main.fragments.FavoritesFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -85,6 +86,10 @@ public class Login extends Activity {
             }
         });
 
+        /**
+         * Login button on click listener
+         * called when the sign in button is pressed
+         */
         mButtLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,8 +100,14 @@ public class Login extends Activity {
             }
         });
 
+        /**
+         * on click listener for the password reset button
+         * opens a dialog asking to enter email
+         * Todo: Make this a better system and just use a default dialog and display users email address currently user mAuth.getEmail()
+         *
+         * Uses firebase password reset email and displays messages for success of failure
+         */
         mButtResetPassword.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 EditText resetMail = new EditText(Login.this);
@@ -120,7 +131,7 @@ public class Login extends Activity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        popupMessageSuccess("The reset link has been sent.");
+                                        Utils.popupMessageSuccess(getApplicationContext(), "The reset link has been sent.");
                                         Log.d("PasswordResetSuccess", "The email was sent.");
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
@@ -130,11 +141,11 @@ public class Login extends Activity {
                                 System.out.println(errorMessage);
                                 switch (errorMessage){
                                     case "There is no user record corresponding to this identifier. The user may have been deleted.":
-                                        popupMessageFailure("There is no account with this email. Please make an account.");
+                                        Utils.popupMessageFailure(getApplicationContext(), "There is no account with this email. Please make an account.");
                                         break;
 
                                     case "The email address is badly formatted.":
-                                        popupMessageFailure("Please enter a valid email address.");
+                                        Utils.popupMessageFailure(getApplicationContext(), "Please enter a valid email address.");
                                         break;
                                 }
                             }
@@ -159,7 +170,6 @@ public class Login extends Activity {
         // [END initialize_auth]
     }
 
-    // [START on_start_check_user]
     @Override
     public void onStart() {
         super.onStart();
@@ -167,12 +177,16 @@ public class Login extends Activity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
     }
-    // [END on_start_check_user]
 
+    /**
+     * signIn called when the sign in button is clicked
+     * @param email user email passed to the function
+     * @param password user password passed to function
+     */
     private void signIn(String email, String password) {
+        // error checks and makes sure there is something for email and password
         if (email == null || email.length() == 0 || password == null || password.length() == 0) {
-            popupMessageFailure("Please enter a valid username and/or password.");
-//            Toast.makeText(this, "Please enter a valid username and/or password.", Toast.LENGTH_SHORT).show();
+            Utils.popupMessageFailure(getApplicationContext(), "Please enter a valid username and/or password.");
             return;
         }
 
@@ -189,10 +203,11 @@ public class Login extends Activity {
                         } else {
                             String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
 
+                            // different error checking things
                             switch (errorCode) {
 
                                 case "ERROR_INVALID_CREDENTIAL":
-                                    popupMessageFailure("The authentication credential is malformed or expired.");
+                                    Utils.popupMessageFailure(getApplicationContext(), "The authentication credential is malformed or expired.");
                                     break;
 
                                 case "ERROR_INVALID_EMAIL":
@@ -201,20 +216,20 @@ public class Login extends Activity {
                                     break;
 
                                 case "ERROR_WRONG_PASSWORD":
-                                    popupMessageFailure("The password entered is incorrect.");
+                                    Utils.popupMessageFailure(getApplicationContext(), "The password entered is incorrect.");
                                     mTxtPassword.setText("");
                                     break;
 
                                 case "ERROR_USER_MISMATCH":
-                                    popupMessageFailure("The supplied credentials do not correspond to the previously signed in user.");
+                                    Utils.popupMessageFailure(getApplicationContext(), "The supplied credentials do not correspond to the previously signed in user.");
                                     break;
 
                                 case "ERROR_REQUIRES_RECENT_LOGIN":
-                                    popupMessageFailure("This operation is sensitive and requires recent authentication. Log in again before retrying this request.");
+                                    Utils.popupMessageFailure(getApplicationContext(), "This operation is sensitive and requires recent authentication. Log in again before retrying this request.");
                                     break;
 
                                 case "ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL":
-                                    popupMessageFailure("An account already exists with the same email address but different sign-in credentials.");
+                                    Utils.popupMessageFailure(getApplicationContext(), "An account already exists with the same email address but different sign-in credentials.");
                                     break;
 
                                 case "ERROR_EMAIL_ALREADY_IN_USE":
@@ -223,27 +238,27 @@ public class Login extends Activity {
                                     break;
 
                                 case "ERROR_CREDENTIAL_ALREADY_IN_USE":
-                                    popupMessageFailure("This email is already associated with a different account.");
+                                    Utils.popupMessageFailure(getApplicationContext(), "This email is already associated with a different account.");
                                     break;
 
                                 case "ERROR_USER_DISABLED":
-                                    popupMessageFailure("This account has been disabled by an administrator");
+                                    Utils.popupMessageFailure(getApplicationContext(), "This account has been disabled by an administrator");
                                     break;
 
                                 case "ERROR_USER_TOKEN_EXPIRED":
-                                    popupMessageFailure("User's credentials have expired. Please sign in again");
+                                    Utils.popupMessageFailure(getApplicationContext(), "User's credentials have expired. Please sign in again");
                                     break;
 
                                 case "ERROR_USER_NOT_FOUND":
-                                    popupMessageFailure("There is no account with this email. Please create an account.");
+                                    Utils.popupMessageFailure(getApplicationContext(), "There is no account with this email. Please create an account.");
                                     break;
 
                                 case "ERROR_INVALID_USER_TOKEN":
-                                    popupMessageFailure("Please sign in again");
+                                    Utils.popupMessageFailure(getApplicationContext(), "Please sign in again");
                                     break;
 
                                 case "ERROR_OPERATION_NOT_ALLOWED":
-                                    popupMessageFailure("This operation is not allowed.");
+                                    Utils.popupMessageFailure(getApplicationContext(), "This operation is not allowed.");
                                     break;
 
                                 case "ERROR_WEAK_PASSWORD":
@@ -262,52 +277,18 @@ public class Login extends Activity {
     }
 
 
-    private void reload() {
-        Intent intent = new Intent(this, MainActivity.class);
-        this.startActivity(intent);
-    }
-
+    /**
+     * called on the start of app and after sign in
+     * @param user user currently signed in. Null if someones else is signed in.
+     */
     private void updateUI(FirebaseUser user) {
         if (user == null) { return;  }
 
         this.startActivity(new Intent(this, MainActivity.class));
     }
 
+    // logs user current user out.
     public static void logout() {
         FirebaseAuth.getInstance().signOut();
-    }
-
-    public void popupMessageFailure(String message){
-        new AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
-                .setTitle("Error")
-                .setMessage(message)
-                .setCancelable(false)
-                .setDarkMode(false)
-                .setGravity(Gravity.CENTER)
-                .setAnimation(DialogAnimation.SHRINK)
-                .setOnClickListener(new OnDialogClickListener() {
-                    @Override
-                    public void onClick(AestheticDialog.Builder builder) {
-                        builder.dismiss();
-                    }
-                })
-                .show();
-    }
-
-    public void popupMessageSuccess(String message) {
-        new AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.SUCCESS)
-                .setTitle("Success")
-                .setMessage(message)
-                .setCancelable(false)
-                .setDarkMode(false)
-                .setGravity(Gravity.CENTER)
-                .setAnimation(DialogAnimation.SHRINK)
-                .setOnClickListener(new OnDialogClickListener() {
-                    @Override
-                    public void onClick(AestheticDialog.Builder builder) {
-                        builder.dismiss();
-                    }
-                })
-                .show();
     }
 }

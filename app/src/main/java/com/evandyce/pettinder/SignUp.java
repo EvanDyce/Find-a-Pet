@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.evandyce.pettinder.cards.Animal;
+import com.evandyce.pettinder.cards.Utils;
 import com.evandyce.pettinder.main.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -84,6 +85,13 @@ public class SignUp extends AppCompatActivity {
 
     }
 
+    /**
+     * creates a user with teh Firebase authentication serivce and then loads the information into the database
+     *
+     * @param email string that is teh email of the user
+     * @param password string that represents the password for the user
+     * @param name string for the name of the user
+     */
     private void createAccount(String email, String password, String name) {
         if (email == null || email.length() == 0 || password == null || password.length() == 0 || name == null || name.length() == 0) {
             Toast.makeText(this, "Please enter a valid name and/or password.", Toast.LENGTH_SHORT).show();
@@ -109,7 +117,7 @@ public class SignUp extends AppCompatActivity {
                             switch (errorCode) {
 
                                 case "ERROR_INVALID_CREDENTIAL":
-                                    popupMessage("The authentication credential is malformed or expired.");
+                                    Utils.popupMessageFailure(getApplicationContext(), "The authentication credential is malformed or expired.");
                                     break;
 
                                 case "ERROR_INVALID_EMAIL":
@@ -118,20 +126,20 @@ public class SignUp extends AppCompatActivity {
                                     break;
 
                                 case "ERROR_WRONG_PASSWORD":
-                                    popupMessage("The password entered is incorrect.");
+                                    Utils.popupMessageFailure(getApplicationContext(),"The password entered is incorrect.");
                                     mTxtPassword.setText("");
                                     break;
 
                                 case "ERROR_USER_MISMATCH":
-                                    popupMessage("The supplied credentials do not correspond to the previously signed in user.");
+                                    Utils.popupMessageFailure(getApplicationContext(),"The supplied credentials do not correspond to the previously signed in user.");
                                     break;
 
                                 case "ERROR_REQUIRES_RECENT_LOGIN":
-                                    popupMessage("This operation is sensitive and requires recent authentication. Log in again before retrying this request.");
+                                    Utils.popupMessageFailure(getApplicationContext(),"This operation is sensitive and requires recent authentication. Log in again before retrying this request.");
                                     break;
 
                                 case "ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL":
-                                    popupMessage("An account already exists with the same email address but different sign-in credentials.");
+                                    Utils.popupMessageFailure(getApplicationContext(),"An account already exists with the same email address but different sign-in credentials.");
                                     break;
 
                                 case "ERROR_EMAIL_ALREADY_IN_USE":
@@ -140,27 +148,27 @@ public class SignUp extends AppCompatActivity {
                                     break;
 
                                 case "ERROR_CREDENTIAL_ALREADY_IN_USE":
-                                    popupMessage("This email is already associated with a different account.");
+                                    Utils.popupMessageFailure(getApplicationContext(),"This email is already associated with a different account.");
                                     break;
 
                                 case "ERROR_USER_DISABLED":
-                                    popupMessage("This account has been disabled by an administrator");
+                                    Utils.popupMessageFailure(getApplicationContext(),"This account has been disabled by an administrator");
                                     break;
 
                                 case "ERROR_USER_TOKEN_EXPIRED":
-                                    popupMessage("User's credentials have expired. Please sign in again");
+                                    Utils.popupMessageFailure(getApplicationContext(),"User's credentials have expired. Please sign in again");
                                     break;
 
                                 case "ERROR_USER_NOT_FOUND":
-                                    popupMessage("There is no account with this email. Please create an account.");
+                                    Utils.popupMessageFailure(getApplicationContext(),"There is no account with this email. Please create an account.");
                                     break;
 
                                 case "ERROR_INVALID_USER_TOKEN":
-                                    popupMessage("Please sign in again");
+                                    Utils.popupMessageFailure(getApplicationContext(),"Please sign in again");
                                     break;
 
                                 case "ERROR_OPERATION_NOT_ALLOWED":
-                                    popupMessage("This operation is not allowed.");
+                                    Utils.popupMessageFailure(getApplicationContext(),"This operation is not allowed.");
                                     break;
 
                                 case "ERROR_WEAK_PASSWORD":
@@ -176,7 +184,16 @@ public class SignUp extends AppCompatActivity {
         // [END create_user_with_email]
     }
 
+    /**
+     * loads the user into database
+     * used for new user information and initializes all of the values to their proper value
+     *
+     * @param email string email for the user
+     * @param name string name for the user
+     */
     private void loadUserIntoDB(String email, String name) {
+
+        // creates hashmap for the data for the user being created
         Map<String, Object> userData = new HashMap<>();
         userData.put("name", name);
         userData.put("email", email);
@@ -184,6 +201,7 @@ public class SignUp extends AppCompatActivity {
         userData.put("total_liked", 0);
         userData.put("liked_list", new ArrayList<Animal>());
 
+        // creates a document in the user collection using the email as the key
         db.collection("users").document(email)
                 .set(userData)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -206,22 +224,4 @@ public class SignUp extends AppCompatActivity {
 
         this.startActivity(new Intent(this, MainActivity.class));
     }
-
-    public void popupMessage(String message){
-        new AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
-                .setTitle("Error")
-                .setMessage(message)
-                .setCancelable(false)
-                .setDarkMode(false)
-                .setGravity(Gravity.CENTER)
-                .setAnimation(DialogAnimation.SHRINK)
-                .setOnClickListener(new OnDialogClickListener() {
-                    @Override
-                    public void onClick(AestheticDialog.Builder builder) {
-                        builder.dismiss();
-                    }
-                })
-                .show();
-    }
-
 }
