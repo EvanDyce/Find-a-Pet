@@ -20,6 +20,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.evandyce.pettinder.R;
 import com.evandyce.pettinder.cards.Animal;
 import com.evandyce.pettinder.cards.Utils;
 import com.google.android.gms.tasks.OnFailureListener;

@@ -94,7 +94,8 @@ public class SearchFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // google maps autocomplete init
-        Places.initialize(getContext(), "AIzaSyC9kkiauPFKakkxPIY0qz3bk2oXCXs3RXA");
+        String apiKey = getString(R.string.GOOGLEAPIKEY);
+        Places.initialize(getContext(), apiKey);
         PlacesClient placesClient = Places.createClient(mActivity);
 
         // initializes all of the instance variables with the proper thing from the view
