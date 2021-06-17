@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,9 +17,11 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.evandyce.pettinder.R;
 import com.evandyce.pettinder.RVAdapter;
 import com.evandyce.pettinder.cards.Animal;
+import com.evandyce.pettinder.cards.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -34,6 +38,8 @@ public class FavoritesFragment extends Fragment {
     public static List<Animal> animalList = new ArrayList<>();
     private static RecyclerView rv;
     private static TextView emptyView;
+    private static ImageView fullScreenImage;
+    private static RelativeLayout fullScreenDim;
 
     @Nullable
     @Override
@@ -57,6 +63,26 @@ public class FavoritesFragment extends Fragment {
         // gets the two possible views. One is recycler view and the other is get swiping message
         rv = (RecyclerView) view.findViewById(R.id.recycler_view);
         emptyView = (TextView) view.findViewById(R.id.empty_rv);
+        fullScreenImage = (ImageView) view.findViewById(R.id.full_screen_imageview);
+        fullScreenDim = (RelativeLayout) view.findViewById(R.id.full_screen_dim);
+
+        /**
+         * Setting on click listener for the full screen image view
+         * If the imageview is empty, do nothing
+         * Else change the image to nothing and hide it
+         */
+        fullScreenImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (fullScreenImage.getVisibility() == View.GONE) {
+                    return;
+                }
+
+                fullScreenImage.setImageDrawable(null);
+                fullScreenImage.setVisibility(View.GONE);
+                fullScreenDim.setVisibility(View.GONE);
+            }
+        });
 
 //        makes layout manager and sets the recycler view layout manager
         LinearLayoutManager llm = new LinearLayoutManager(mActivity);
@@ -82,5 +108,16 @@ public class FavoritesFragment extends Fragment {
             rv.setVisibility(View.VISIBLE);
             emptyView.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * Show the image clicked on in full screen
+     * @param imageURL image url to load with glide to show in teh image view
+     * @param context context used to use glide
+     */
+    public static void setFullScreenImage(String imageURL, Context context) {
+        Glide.with(context).load(imageURL).into(fullScreenImage);
+        fullScreenImage.setVisibility(View.VISIBLE);
+        fullScreenDim.setVisibility(View.VISIBLE);
     }
 }

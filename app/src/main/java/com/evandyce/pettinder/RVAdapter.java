@@ -135,6 +135,14 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
             }
         });
 
+        // when teh image is clicked on then it fullscreens the image in a different imageview and tints the background
+        holder.animalImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FavoritesFragment.setFullScreenImage(animals.get(position).getImageUrl(), context);
+            }
+        });
+
         // sets the information for each of the cards in the recycler view
         holder.animalName.setText(animals.get(position).getName());
         holder.animalLocation.setText(animals.get(position).getLocation());

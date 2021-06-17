@@ -24,6 +24,18 @@
         android:textSize="@dimen/text_20"
         android:textStyle="bold"/>
 
+    <RelativeLayout
+        android:id="@+id/full_screen_dim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/full_screen_imageview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 </RelativeLayout>
 
 
