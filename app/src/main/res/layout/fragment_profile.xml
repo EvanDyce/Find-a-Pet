@@ -182,16 +182,6 @@
             android:layout_height="wrap_content"
             android:text="Log Out"/>
 
-        <Button
-            android:id="@+id/autoCompleteStart"
-            android:textColor="@color/black"
-            android:layout_marginVertical="5dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/rounded"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Launch Autocomplete"/>
-
     </LinearLayout>
 
 </ScrollView>

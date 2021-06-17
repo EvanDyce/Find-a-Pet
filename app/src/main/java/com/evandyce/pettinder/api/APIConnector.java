@@ -23,11 +23,14 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.evandyce.pettinder.R;
 import com.evandyce.pettinder.cards.Animal;
 import com.evandyce.pettinder.cards.Utils;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.libraries.places.api.model.Place;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,7 +48,8 @@ public class APIConnector {
 
 
     // urls for api requests
-    public static String BASE_PETFINDER_URL = "https://api.petfinder.com/v2/animals?type=dog&limit=100";
+//    public static String BASE_PETFINDER_URL = "https://api.petfinder.com/v2/animals?type=dog&limit=100";
+    public static String BASE_PETFINDER_URL = "https://api.petfinder.com/v2/animals?limit=100";
     public static final String GET_NEW_TOKEN_URL = "https://api.petfinder.com/v2/oauth2/token";
 
     // final static string for the new token value
@@ -74,6 +78,89 @@ public class APIConnector {
     Querys the API with data passed from SearchFragment inputs
     Calls volleyResponseListener for callback functions and passes the values
      */
+
+    public void getDataFromApi2(Place place, String radius, String animalType, String animalAge, VolleyResponseListener volleyResponseListener) {
+
+        System.out.println(place);
+        if (place == null || place.equals("null")) {
+            Utils.popupMessageFailure(context, "Please select a city from the dropdown.");
+            return;
+        } else if (radius.equals("0")) {
+            Utils.popupMessageFailure(context, "Please select a valid range.");
+            return;
+        }
+
+        LatLng latLng = place.getLatLng();
+        String latitude = String.valueOf(latLng.latitude);
+        String longitude = String.valueOf(latLng.longitude);
+        String url = paramURL(latitude, longitude, radius, animalType, animalAge);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        loadDogObjects(response, volleyResponseListener);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                if (error instanceof NetworkError || error instanceof AuthFailureError || error instanceof NoConnectionError || error instanceof TimeoutError) {
+                    Utils.popupMessageFailure(context, "Cannot connect to the internet");
+                    return;
+                } else if(error instanceof ServerError) {
+                    Utils.popupMessageFailure(context, "Server could not be found. Please try again later.");
+                    return;
+                } else if (error instanceof ParseError) {
+                    Utils.popupMessageFailure(context, "Parsing error. Please try again later.");
+                    return;
+                }
+                // if the error is because the token is unauthorized then it passes the message back and generates a new token
+                if(error.networkResponse.statusCode == 401) {
+                    generateNewToken();
+                    getDataFromApi2(place, radius, animalType, animalAge, volleyResponseListener);
+                }
+                // city and province do not exist in db
+                else if (error.networkResponse.statusCode == 400) {
+                    volleyResponseListener.onError("Please enter a valid city");
+                }
+            }
+        })
+        {
+            // adds headers to the request uses the token value from generateNewToken
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap headers = new HashMap();
+                headers.put("Authorization", "Bearer " + new_token);
+                return headers;
+            }
+        };
+
+        Log.d(TAG, "API Request 2 completed");
+        MySingleton.getInstance(context).addToRequestQueue(request);
+    }
+
+    private String paramURL(String latitude, String longitude, String radius, String animalType, String animalAge) {
+        String temp = BASE_PETFINDER_URL;
+
+        temp += "&location=" + latitude + ", " + longitude;
+
+        if (radius.length() != 0) {
+            temp += "&distance=" + radius;
+        }
+
+        if (!animalType.equals("Any")) {
+            temp += "&type=" + animalType;
+        }
+        if (!animalAge.equals("Any")) {
+            temp += "&age=" + animalAge;
+        }
+
+        System.out.println(temp);
+        return temp;
+    }
+
+
     public void getDataFromAPI(String city, String range, String province, VolleyResponseListener volleyResponseListener) {
 
         // adds the parameters to the API request

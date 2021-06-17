@@ -32,48 +32,11 @@
             android:maxLines="1"
             />
 
-<!--    Select Province text and Spinner-->
         <LinearLayout
-            android:id="@+id/searchFragment_lowerLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="15dp">
-
-            <TextView
-                android:id="@+id/tv_selectProvince"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/size_38"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/selectProvincePrompt"
-                android:textSize="@dimen/text_20"
-                android:textStyle="bold"
-                android:textColor="@color/dark_grey"/>
-
-<!--            <Space-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="@dimen/size_10"/>-->
-
-            <org.angmarch.views.NiceSpinner
-                android:id="@+id/provinces_spinner"
-                android:layout_width="@dimen/size_250"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:entries="@array/province_list_full"
-                app:textTint="@color/black"
-                android:layout_gravity="center"
-                android:textSize="@dimen/text_20"
-                android:lines="1"
-                android:textAlignment="center"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:paddingTop="@dimen/size_20">
 
             <TextView
                 android:id="@+id/tv_enterMaxRangePrompt"

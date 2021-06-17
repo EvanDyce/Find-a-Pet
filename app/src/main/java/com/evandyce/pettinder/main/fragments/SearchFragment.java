@@ -60,11 +60,13 @@ public class SearchFragment extends Fragment {
     // values for the google autocomplete activity
     private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
     private Place place = null;
+    private int sliderValue = 100;
 
     private SeekBar rangeSlider;
     private EditText cityNameEditText;
     private TextView rangeSliderValueTextView;
-    private NiceSpinner provincesDropdown;
+    private NiceSpinner animalTypeSpinner;
+    private NiceSpinner animalAgeSpinner;
     private Button searchButton;
 
     // called on the creation
@@ -102,13 +104,25 @@ public class SearchFragment extends Fragment {
         cityNameEditText = view.findViewById(R.id.et_enterCityName);
         rangeSlider = view.findViewById(R.id.rangeSlider);
         rangeSliderValueTextView = view.findViewById(R.id.rangeSliderText);
-        provincesDropdown = view.findViewById(R.id.provinces_spinner);
+        animalTypeSpinner = view.findViewById(R.id.animal_type_spinner);
+        animalAgeSpinner = view.findViewById(R.id.animal_age_spinner);
         searchButton = view.findViewById(R.id.searchFragment_searchButton);
+
+        // animal type spinner
+        ArrayAdapter<CharSequence> adapterType = ArrayAdapter.createFromResource(view.getContext(), R.array.animal_type, R.layout.spinner_item);
+        adapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        animalTypeSpinner.setAdapter(adapterType);
+
+        // animal age spinner
+        ArrayAdapter<CharSequence> adapterAge = ArrayAdapter.createFromResource(view.getContext(), R.array.animal_ages, R.layout.spinner_item);
+        adapterAge.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        animalAgeSpinner.setAdapter(adapterAge);
 
         rangeSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 rangeSliderValueTextView.setText(String.valueOf(progress) + " km");
+                sliderValue = progress;
             }
 
             @Override
@@ -120,10 +134,6 @@ public class SearchFragment extends Fragment {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(view.getContext(), R.array.province_list_full, R.layout.spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        provincesDropdown.setAdapter(adapter);
 
         /*
             Sets on click listener for the edit text at the top of the fragment
@@ -160,7 +170,7 @@ public class SearchFragment extends Fragment {
                 // does the actual query
                 // uses APIConnection object and passes string from text fields and spinner
                 // VolleyResponseListener is for callbacks and when response is received the methods are called with params from APIConnector implementation
-                db.getDataFromAPI(cityNameEditText.getText().toString(), String.valueOf(rangeSlider.getProgress()), provincesDropdown.getSelectedItem().toString(), new APIConnector.VolleyResponseListener() {
+                db.getDataFromApi2(place, String.valueOf(sliderValue), animalTypeSpinner.getSelectedItem().toString(), animalAgeSpinner.getSelectedItem().toString(), new APIConnector.VolleyResponseListener() {
                     @Override
                     public void onError(String message) {
                         Utils.popupMessageFailure(mActivity, message);
