@@ -7,9 +7,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
+import com.evandyce.pettinder.CardsActivity;
 import com.evandyce.pettinder.User;
+import com.evandyce.pettinder.Utils;
 import com.evandyce.pettinder.main.fragments.FavoritesFragment;
-import com.evandyce.pettinder.main.fragments.SearchFragment;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;

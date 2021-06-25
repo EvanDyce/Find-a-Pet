@@ -1,4 +1,4 @@
-package com.evandyce.pettinder.cards;
+package com.evandyce.pettinder;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,19 +8,13 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.evandyce.pettinder.Login;
-import com.evandyce.pettinder.R;
 import com.evandyce.pettinder.User;
-import com.evandyce.pettinder.main.MainActivity;
 import com.evandyce.pettinder.main.fragments.FavoritesFragment;
-import com.evandyce.pettinder.main.fragments.ProfileFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

@@ -1,19 +1,14 @@
-package com.evandyce.pettinder;
+package com.evandyce.pettinder.cards;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,8 +16,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.evandyce.pettinder.cards.Animal;
-import com.evandyce.pettinder.cards.Utils;
+import com.evandyce.pettinder.R;
+import com.evandyce.pettinder.Utils;
 import com.evandyce.pettinder.main.fragments.FavoritesFragment;
 
 import java.util.List;
@@ -146,7 +141,11 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.AnimalViewHolder> 
         // sets the information for each of the cards in the recycler view
         holder.animalName.setText(animals.get(position).getName());
         holder.animalLocation.setText(animals.get(position).getLocation());
-        holder.animalContact.setText(animals.get(position).getEmail());
+        if (animals.get(position).getEmail() == null || animals.get(position).getEmail().length() == 0) {
+            holder.animalContact.setText(R.string.NoEmail);
+        } else {
+            holder.animalContact.setText(animals.get(position).getEmail());
+        }
         holder.animalDescription.setText(animals.get(position).getDescription());
         Glide.with(this.context).load(animals.get(position).getImageUrl()).into(holder.animalImage);
     }

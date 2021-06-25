@@ -6,10 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
 
-import com.evandyce.pettinder.cards.Utils;
-import com.evandyce.pettinder.main.MainActivity;
 import com.evandyce.pettinder.main.fragments.FavoritesFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,28 +20,13 @@ import com.google.firebase.auth.FirebaseUser;
 //https://github.com/firebase/snippets-android/blob/8fa42b206795c271810b038687744b2d2ac15357/auth/app/src/main/java/com/google/firebase/quickstart/auth/EmailPasswordActivity.java#L62-L79
 
 import android.app.Activity;
-import android.text.InputType;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.thecode.aestheticdialogs.AestheticDialog;
-import com.thecode.aestheticdialogs.DialogAnimation;
-import com.thecode.aestheticdialogs.DialogStyle;
-import com.thecode.aestheticdialogs.DialogType;
-import com.thecode.aestheticdialogs.OnDialogClickListener;
-
-import karpuzoglu.enes.com.fastdialog.Animations;
-import karpuzoglu.enes.com.fastdialog.FastDialog;
 
 public class Login extends Activity {
 
@@ -103,7 +85,6 @@ public class Login extends Activity {
         /**
          * on click listener for the password reset button
          * opens a dialog asking to enter email
-         * Todo: Make this a better system and just use a default dialog and display users email address currently user mAuth.getEmail()
          *
          * Uses firebase password reset email and displays messages for success of failure
          */

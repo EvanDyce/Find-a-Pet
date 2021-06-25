@@ -1,19 +1,17 @@
 package com.evandyce.pettinder.main.fragments;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,7 +20,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.evandyce.pettinder.Login;
 import com.evandyce.pettinder.R;
-import com.evandyce.pettinder.cards.Utils;
+import com.evandyce.pettinder.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,9 +29,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.shashank.sony.fancydialoglib.Animation;
+import com.shashank.sony.fancydialoglib.FancyAlertDialog;
+import com.shashank.sony.fancydialoglib.FancyAlertDialogListener;
+import com.shashank.sony.fancydialoglib.Icon;
 
-import static com.evandyce.pettinder.cards.Utils.popupMessageSuccess;
-import static com.evandyce.pettinder.cards.Utils.popupMessageFailure;
+import static com.evandyce.pettinder.Utils.popupMessageSuccess;
+import static com.evandyce.pettinder.Utils.popupMessageFailure;
 
 public class ProfileFragment extends Fragment {
 
@@ -76,60 +78,54 @@ public class ProfileFragment extends Fragment {
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // sets the dialog settings for the popup
-                EditText resetMail = new EditText(mActivity);
-                Drawable style = getResources().getDrawable(R.drawable.custom_input, v.getContext().getTheme());
-                resetMail.setBackground(style);
-                resetMail.setScaleX(0.9f);
-                resetMail.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_email_black, 0, 0, 0);
-                resetMail.setCompoundDrawablePadding(20);
-                resetMail.setHint("Enter email");
-                AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext())
-                        .setTitle("Reset Password?")
-                        .setMessage("Please enter your email to receive reset link.")
-                        .setView(resetMail);
-
-                // positive button setup
-                passwordResetDialog.setPositiveButton("Send", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // get email and sent reset through firebase
-                        String email = resetMail.getText().toString();
-                        mAuth.sendPasswordResetEmail(email)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        popupMessageSuccess(mActivity, "The reset link has been sent.");
-                                        Log.d(TAG, "The email was sent.");
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
+                new FancyAlertDialog.Builder((Activity) v.getContext())
+                        .setTitle("Send Reset Password Email")
+                        .setBackgroundColor(Color.parseColor("#8000ff"))  //Don't pass R.color.colorvalue
+                        .setMessage("The email used to create account will receive email")
+                        .setNegativeBtnText("Cancel")
+                        .setPositiveBtnBackground(Color.parseColor("#8000ff"))  //Don't pass R.color.colorvalue
+                        .setPositiveBtnText("Send")
+                        .setNegativeBtnBackground(Color.parseColor("#8000ff"))  //Don't pass R.color.colorvalue
+                        .setAnimation(Animation.POP)
+                        .isCancellable(true)
+                        .setIcon(R.drawable.ic_star_border_black_24dp, Icon.Visible)
+                        .OnPositiveClicked(new FancyAlertDialogListener() {
                             @Override
-                            public void onFailure(@NonNull Exception e) {
-                                String errorMessage = e.getMessage();
-                                Log.w(TAG, "Password Reset Failed: " + errorMessage);
-                                switch (errorMessage){
-                                    case "There is no user record corresponding to this identifier. The user may have been deleted.":
-                                        popupMessageFailure(mActivity, "There is no account with this email. Please make an account.");
-                                        break;
+                            public void OnClick() {
+                                // get email and sent reset through firebase
+                                String email = mAuth.getCurrentUser().getEmail();
+                                mAuth.sendPasswordResetEmail(email)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                popupMessageSuccess(mActivity, "The reset link has been sent.");
+                                                Log.d(TAG, "The email was sent.");
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        String errorMessage = e.getMessage();
+                                        Log.w(TAG, "Password Reset Failed: " + errorMessage);
+                                        switch (errorMessage){
+                                            case "There is no user record corresponding to this identifier. The user may have been deleted.":
+                                                popupMessageFailure(mActivity, "There is no account with this email. Please make an account.");
+                                                break;
 
-                                    case "The email address is badly formatted.":
-                                        popupMessageFailure(mActivity, "Please enter a valid email address.");
-                                        break;
-                                }
+                                            case "The email address is badly formatted.":
+                                                popupMessageFailure(mActivity, "Please enter a valid email address.");
+                                                break;
+                                        }
+                                    }
+                                });
+                                    }
+                                })
+                        .OnNegativeClicked(new FancyAlertDialogListener() {
+                            @Override
+                            public void OnClick() {
+                                Toast.makeText(v.getContext(),"Cancel",Toast.LENGTH_SHORT).show();
                             }
-                        });
-                    }
-                });
-
-                // negative button setup
-                passwordResetDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-                passwordResetDialog.show();
+                        })
+                        .build();
             }
         });
 

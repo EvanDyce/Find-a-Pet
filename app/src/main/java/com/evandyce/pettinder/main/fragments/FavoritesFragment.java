@@ -2,7 +2,6 @@ package com.evandyce.pettinder.main.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.evandyce.pettinder.R;
-import com.evandyce.pettinder.RVAdapter;
+import com.evandyce.pettinder.cards.RVAdapter;
 import com.evandyce.pettinder.cards.Animal;
-import com.evandyce.pettinder.cards.Utils;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;

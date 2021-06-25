@@ -1,4 +1,4 @@
-package com.evandyce.pettinder.cards;
+package com.evandyce.pettinder;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -20,21 +18,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.evandyce.pettinder.R;
 import com.evandyce.pettinder.User;
+import com.evandyce.pettinder.Utils;
 import com.evandyce.pettinder.api.APIConnector;
-import com.evandyce.pettinder.main.MainActivity;
-import com.evandyce.pettinder.main.fragments.FavoritesFragment;
-import com.evandyce.pettinder.main.fragments.ProfileFragment;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.evandyce.pettinder.MainActivity;
+import com.evandyce.pettinder.cards.Animal;
+import com.evandyce.pettinder.cards.TinderCard;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 
 import java.util.List;
-import java.util.Objects;
 
 public class CardsActivity extends AppCompatActivity {
 

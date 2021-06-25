@@ -1,4 +1,4 @@
-package com.evandyce.pettinder.main;
+package com.evandyce.pettinder;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -11,13 +11,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-import com.evandyce.pettinder.Login;
-import com.evandyce.pettinder.R;
 import com.evandyce.pettinder.api.APIConnector;
 import com.evandyce.pettinder.cards.Animal;
-import com.evandyce.pettinder.cards.Utils;
 import com.evandyce.pettinder.main.fragments.FavoritesFragment;
 import com.evandyce.pettinder.main.fragments.ProfileFragment;
 import com.evandyce.pettinder.main.fragments.SearchFragment;
@@ -30,7 +26,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 

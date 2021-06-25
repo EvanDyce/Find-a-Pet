@@ -1,7 +1,6 @@
 package com.evandyce.pettinder.main.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -15,20 +14,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import com.evandyce.pettinder.cards.CardsActivity;
+import com.evandyce.pettinder.CardsActivity;
 import com.evandyce.pettinder.api.APIConnector;
 import com.evandyce.pettinder.R;
-import com.evandyce.pettinder.cards.Utils;
-import com.evandyce.pettinder.main.MainActivity;
+import com.evandyce.pettinder.Utils;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
