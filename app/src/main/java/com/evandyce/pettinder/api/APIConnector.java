@@ -323,7 +323,7 @@ public class APIConnector {
     makes a post request to the API and gets the new token back
      */
     public void generateNewToken() {
-        DocumentReference documentReference = db.document("keys/ar6S9VvAdD5z6qCkE57X");
+        DocumentReference documentReference = db.document("");
 
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
