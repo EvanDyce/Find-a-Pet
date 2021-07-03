@@ -78,7 +78,6 @@ public class APIConnector {
 
     public void getDataFromApi2(Place place, String radius, String animalType, String animalAge, VolleyResponseListener volleyResponseListener) {
 
-        System.out.println(place);
         if (place == null || place.equals("null")) {
             Utils.popupMessageFailure(context, "Please select a city from the dropdown.");
             return;
@@ -102,25 +101,29 @@ public class APIConnector {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                if (error instanceof NetworkError || error instanceof AuthFailureError || error instanceof NoConnectionError || error instanceof TimeoutError) {
+                if (error instanceof NetworkError || error instanceof AuthFailureError || error instanceof TimeoutError) {
                     Utils.popupMessageFailure(context, "Cannot connect to the internet");
-                    return;
+
+                    if (error.networkResponse.statusCode == 401) {
+                        generateNewToken();
+                        getDataFromApi2(place, radius, animalType, animalAge, volleyResponseListener);
+                    } else if (error.networkResponse.statusCode == 400) {
+                        volleyResponseListener.onError("Please enter a valid city");
+                    }
                 } else if(error instanceof ServerError) {
                     Utils.popupMessageFailure(context, "Server could not be found. Please try again later.");
-                    return;
                 } else if (error instanceof ParseError) {
                     Utils.popupMessageFailure(context, "Parsing error. Please try again later.");
-                    return;
                 }
                 // if the error is because the token is unauthorized then it passes the message back and generates a new token
-                if(error.networkResponse.statusCode == 401) {
-                    generateNewToken();
-                    getDataFromApi2(place, radius, animalType, animalAge, volleyResponseListener);
-                }
+//                if(error.networkResponse.statusCode == 401) {
+//                    generateNewToken();
+//                    getDataFromApi2(place, radius, animalType, animalAge, volleyResponseListener);
+//                }
                 // city and province do not exist in db
-                else if (error.networkResponse.statusCode == 400) {
-                    volleyResponseListener.onError("Please enter a valid city");
-                }
+//                else if (error.networkResponse.statusCode == 400) {
+//                    volleyResponseListener.onError("Please enter a valid city");
+//                }
             }
         })
         {
@@ -323,7 +326,7 @@ public class APIConnector {
     makes a post request to the API and gets the new token back
      */
     public void generateNewToken() {
-        DocumentReference documentReference = db.document("");
+        DocumentReference documentReference = db.document("keys/ar6S9VvAdD5z6qCkE57X");
 
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
