@@ -1,4 +1,4 @@
-package com.evandyce.pettinder.main.fragments;
+package com.evandyce.findapet.main.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,9 +18,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import com.evandyce.pettinder.Login;
-import com.evandyce.pettinder.R;
-import com.evandyce.pettinder.Utils;
+import com.evandyce.findapet.Login;
+import com.evandyce.findapet.Utils;
+import com.evandyce.findapet.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,8 +34,8 @@ import com.shashank.sony.fancydialoglib.FancyAlertDialog;
 import com.shashank.sony.fancydialoglib.FancyAlertDialogListener;
 import com.shashank.sony.fancydialoglib.Icon;
 
-import static com.evandyce.pettinder.Utils.popupMessageSuccess;
-import static com.evandyce.pettinder.Utils.popupMessageFailure;
+import static com.evandyce.findapet.Utils.popupMessageSuccess;
+import static com.evandyce.findapet.Utils.popupMessageFailure;
 
 public class ProfileFragment extends Fragment {
 
@@ -98,7 +98,7 @@ public class ProfileFragment extends Fragment {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                popupMessageSuccess(mActivity, "The reset link has been sent.");
+                                                Utils.popupMessageSuccess(mActivity, "The reset link has been sent.");
                                                 Log.d(TAG, "The email was sent.");
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
@@ -108,11 +108,11 @@ public class ProfileFragment extends Fragment {
                                         Log.w(TAG, "Password Reset Failed: " + errorMessage);
                                         switch (errorMessage){
                                             case "There is no user record corresponding to this identifier. The user may have been deleted.":
-                                                popupMessageFailure(mActivity, "There is no account with this email. Please make an account.");
+                                                Utils.popupMessageFailure(mActivity, "There is no account with this email. Please make an account.");
                                                 break;
 
                                             case "The email address is badly formatted.":
-                                                popupMessageFailure(mActivity, "Please enter a valid email address.");
+                                                Utils.popupMessageFailure(mActivity, "Please enter a valid email address.");
                                                 break;
                                         }
                                     }

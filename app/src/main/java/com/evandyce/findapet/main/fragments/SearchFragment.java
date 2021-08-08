@@ -1,4 +1,4 @@
-package com.evandyce.pettinder.main.fragments;
+package com.evandyce.findapet.main.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -21,10 +21,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import com.evandyce.pettinder.CardsActivity;
-import com.evandyce.pettinder.api.APIConnector;
-import com.evandyce.pettinder.R;
-import com.evandyce.pettinder.Utils;
+import com.evandyce.findapet.CardsActivity;
+import com.evandyce.findapet.Utils;
+import com.evandyce.findapet.api.APIConnector;
+import com.evandyce.findapet.R;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;

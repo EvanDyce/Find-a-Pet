@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.PetTinder" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="Theme.findapet" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple</item>
         <item name="colorPrimaryVariant">@color/purple_darker</item>

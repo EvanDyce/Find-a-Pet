@@ -1,4 +1,4 @@
-package com.evandyce.pettinder.api;
+package com.evandyce.findapet.api;
 
 import android.content.Context;
 import android.util.Log;
@@ -19,8 +19,8 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.evandyce.pettinder.cards.Animal;
-import com.evandyce.pettinder.Utils;
+import com.evandyce.findapet.Utils;
+import com.evandyce.findapet.cards.Animal;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,7 +45,6 @@ public class APIConnector {
 
 
     // urls for api requests
-//    public static String BASE_PETFINDER_URL = "https://api.petfinder.com/v2/animals?type=dog&limit=100";
     public static String BASE_PETFINDER_URL = "https://api.petfinder.com/v2/animals?limit=100";
     public static final String GET_NEW_TOKEN_URL = "https://api.petfinder.com/v2/oauth2/token";
 

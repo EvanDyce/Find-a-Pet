@@ -1,4 +1,4 @@
-package com.evandyce.pettinder;
+package com.evandyce.findapet;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -12,11 +12,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.evandyce.pettinder.api.APIConnector;
-import com.evandyce.pettinder.cards.Animal;
-import com.evandyce.pettinder.main.fragments.FavoritesFragment;
-import com.evandyce.pettinder.main.fragments.ProfileFragment;
-import com.evandyce.pettinder.main.fragments.SearchFragment;
+import com.evandyce.findapet.api.APIConnector;
+import com.evandyce.findapet.cards.Animal;
+import com.evandyce.findapet.main.fragments.FavoritesFragment;
+import com.evandyce.findapet.main.fragments.SearchFragment;
+import com.evandyce.findapet.main.fragments.ProfileFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

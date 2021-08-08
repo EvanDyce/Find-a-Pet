@@ -1,4 +1,4 @@
-package com.evandyce.pettinder.cards;
+package com.evandyce.findapet.cards;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,10 +7,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
-import com.evandyce.pettinder.CardsActivity;
-import com.evandyce.pettinder.User;
-import com.evandyce.pettinder.Utils;
-import com.evandyce.pettinder.main.fragments.FavoritesFragment;
+import com.evandyce.findapet.User;
+import com.evandyce.findapet.main.fragments.FavoritesFragment;
+import com.evandyce.findapet.CardsActivity;
+import com.evandyce.findapet.Utils;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;
@@ -28,7 +28,7 @@ import com.mindorks.placeholderview.annotations.swipe.SwipeView;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
-import com.evandyce.pettinder.R;
+import com.evandyce.findapet.R;
 
 /**
  * Created by janisharali on 19/08/16.

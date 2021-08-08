@@ -28,4 +28,5 @@
     <dimen name="size_100">100dp</dimen>
     <dimen name="text_50">50sp</dimen>
     <dimen name="size_400">400sp</dimen>
+    <dimen name="size_300">300dp</dimen>
 </resources>

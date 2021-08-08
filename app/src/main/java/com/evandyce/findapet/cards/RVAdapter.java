@@ -1,4 +1,4 @@
-package com.evandyce.pettinder.cards;
+package com.evandyce.findapet.cards;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,9 +16,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.evandyce.pettinder.R;
-import com.evandyce.pettinder.Utils;
-import com.evandyce.pettinder.main.fragments.FavoritesFragment;
+import com.evandyce.findapet.Utils;
+import com.evandyce.findapet.main.fragments.FavoritesFragment;
+import com.evandyce.findapet.R;
 
 import java.util.List;
 

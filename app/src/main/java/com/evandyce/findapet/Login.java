@@ -1,4 +1,4 @@
-package com.evandyce.pettinder;
+package com.evandyce.findapet;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
-import com.evandyce.pettinder.main.fragments.FavoritesFragment;
+import com.evandyce.findapet.main.fragments.FavoritesFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -112,7 +112,7 @@ public class Login extends Activity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Utils.popupMessageSuccess(getApplicationContext(), "The reset link has been sent.");
+                                        Utils.popupMessageSuccess(Login.this, "The reset link has been sent.");
                                         Log.d("PasswordResetSuccess", "The email was sent.");
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
@@ -122,11 +122,11 @@ public class Login extends Activity {
                                 System.out.println(errorMessage);
                                 switch (errorMessage){
                                     case "There is no user record corresponding to this identifier. The user may have been deleted.":
-                                        Utils.popupMessageFailure(getApplicationContext(), "There is no account with this email. Please make an account.");
+                                        Utils.popupMessageFailure(Login.this, "There is no account with this email. Please make an account.");
                                         break;
 
                                     case "The email address is badly formatted.":
-                                        Utils.popupMessageFailure(getApplicationContext(), "Please enter a valid email address.");
+                                        Utils.popupMessageFailure(Login.this, "Please enter a valid email address.");
                                         break;
                                 }
                             }
@@ -167,7 +167,7 @@ public class Login extends Activity {
     private void signIn(String email, String password) {
         // error checks and makes sure there is something for email and password
         if (email == null || email.length() == 0 || password == null || password.length() == 0) {
-            Utils.popupMessageFailure(getApplicationContext(), "Please enter a valid username and/or password.");
+            Utils.popupMessageFailure(Login.this, "Please enter a valid username and/or password.");
             return;
         }
 
@@ -188,7 +188,7 @@ public class Login extends Activity {
                             switch (errorCode) {
 
                                 case "ERROR_INVALID_CREDENTIAL":
-                                    Utils.popupMessageFailure(getApplicationContext(), "The authentication credential is malformed or expired.");
+                                    Utils.popupMessageFailure(Login.this, "The authentication credential is malformed or expired.");
                                     break;
 
                                 case "ERROR_INVALID_EMAIL":
@@ -197,20 +197,20 @@ public class Login extends Activity {
                                     break;
 
                                 case "ERROR_WRONG_PASSWORD":
-                                    Utils.popupMessageFailure(getApplicationContext(), "The password entered is incorrect.");
+                                    Utils.popupMessageFailure(Login.this, "The password entered is incorrect.");
                                     mTxtPassword.setText("");
                                     break;
 
                                 case "ERROR_USER_MISMATCH":
-                                    Utils.popupMessageFailure(getApplicationContext(), "The supplied credentials do not correspond to the previously signed in user.");
+                                    Utils.popupMessageFailure(Login.this, "The supplied credentials do not correspond to the previously signed in user.");
                                     break;
 
                                 case "ERROR_REQUIRES_RECENT_LOGIN":
-                                    Utils.popupMessageFailure(getApplicationContext(), "This operation is sensitive and requires recent authentication. Log in again before retrying this request.");
+                                    Utils.popupMessageFailure(Login.this, "This operation is sensitive and requires recent authentication. Log in again before retrying this request.");
                                     break;
 
                                 case "ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL":
-                                    Utils.popupMessageFailure(getApplicationContext(), "An account already exists with the same email address but different sign-in credentials.");
+                                    Utils.popupMessageFailure(Login.this, "An account already exists with the same email address but different sign-in credentials.");
                                     break;
 
                                 case "ERROR_EMAIL_ALREADY_IN_USE":
@@ -219,27 +219,27 @@ public class Login extends Activity {
                                     break;
 
                                 case "ERROR_CREDENTIAL_ALREADY_IN_USE":
-                                    Utils.popupMessageFailure(getApplicationContext(), "This email is already associated with a different account.");
+                                    Utils.popupMessageFailure(Login.this, "This email is already associated with a different account.");
                                     break;
 
                                 case "ERROR_USER_DISABLED":
-                                    Utils.popupMessageFailure(getApplicationContext(), "This account has been disabled by an administrator");
+                                    Utils.popupMessageFailure(Login.this, "This account has been disabled by an administrator");
                                     break;
 
                                 case "ERROR_USER_TOKEN_EXPIRED":
-                                    Utils.popupMessageFailure(getApplicationContext(), "User's credentials have expired. Please sign in again");
+                                    Utils.popupMessageFailure(Login.this, "User's credentials have expired. Please sign in again");
                                     break;
 
                                 case "ERROR_USER_NOT_FOUND":
-                                    Utils.popupMessageFailure(getApplicationContext(), "There is no account with this email. Please create an account.");
+                                    Utils.popupMessageFailure(Login.this, "There is no account with this email. Please create an account.");
                                     break;
 
                                 case "ERROR_INVALID_USER_TOKEN":
-                                    Utils.popupMessageFailure(getApplicationContext(), "Please sign in again");
+                                    Utils.popupMessageFailure(Login.this, "Please sign in again");
                                     break;
 
                                 case "ERROR_OPERATION_NOT_ALLOWED":
-                                    Utils.popupMessageFailure(getApplicationContext(), "This operation is not allowed.");
+                                    Utils.popupMessageFailure(Login.this, "This operation is not allowed.");
                                     break;
 
                                 case "ERROR_WEAK_PASSWORD":

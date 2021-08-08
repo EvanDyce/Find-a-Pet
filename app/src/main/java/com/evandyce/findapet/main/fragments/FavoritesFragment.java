@@ -1,4 +1,4 @@
-package com.evandyce.pettinder.main.fragments;
+package com.evandyce.findapet.main.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,9 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.evandyce.pettinder.R;
-import com.evandyce.pettinder.cards.RVAdapter;
-import com.evandyce.pettinder.cards.Animal;
+import com.evandyce.findapet.cards.Animal;
+import com.evandyce.findapet.R;
+import com.evandyce.findapet.cards.RVAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

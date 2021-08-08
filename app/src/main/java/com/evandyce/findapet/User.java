@@ -1,10 +1,7 @@
-package com.evandyce.pettinder;
+package com.evandyce.findapet;
 
-import android.content.Context;
+import com.evandyce.findapet.cards.Animal;
 
-import com.evandyce.pettinder.cards.Animal;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class User {

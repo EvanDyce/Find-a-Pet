@@ -6,113 +6,116 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white">
 
-    <LinearLayout
-        android:id="@+id/linear_searchFragmentLinearContainer"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation = "vertical"
-        android:layout_alignParentTop="true"
-        android:paddingTop="@dimen/size_20"
-        android:divider="@android:color/black"
-        android:showDividers="none"
-        android:dividerPadding="@dimen/size_10"
-        >
-
-        <EditText
-            android:id="@+id/et_enterCityName"
-            android:layout_width="@dimen/size_350"
-            android:layout_height="@dimen/size_50"
-            android:layout_gravity="center"
-            android:hint="@string/enter_city_name"
-            android:drawableStart="@drawable/ic_city"
-            android:drawablePadding="@dimen/padding_10"
-            android:background="@drawable/custom_input"
-            android:textColorHint="@color/black"
-            android:textColor="@color/black"
-            android:maxLines="1"
-            />
-
+        android:layout_height="match_parent">
         <LinearLayout
+            android:id="@+id/linear_searchFragmentLinearContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/size_20">
+            android:orientation = "vertical"
+            android:layout_alignParentTop="true"
+            android:paddingTop="@dimen/size_20"
+            android:divider="@android:color/black"
+            android:showDividers="none"
+            android:dividerPadding="@dimen/size_10"
+            >
 
-            <TextView
-                android:id="@+id/tv_enterMaxRangePrompt"
-                android:layout_width="wrap_content"
-                android:layout_height="37dp"
+            <EditText
+                android:id="@+id/et_enterCityName"
+                android:layout_width="@dimen/size_300"
+                android:layout_height="@dimen/size_50"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/rangeTextView"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/dark_grey"/>
+                android:hint="@string/enter_city_name"
+                android:drawableStart="@drawable/ic_city"
+                android:drawablePadding="@dimen/padding_10"
+                android:background="@drawable/custom_input"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:maxLines="1"
+                />
 
-            <SeekBar
-                android:id="@+id/rangeSlider"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxHeight="3dp"
-                android:minHeight="3dp"
-                android:progress="100"
-                android:layout_weight="1"
-                android:max="500"
-                android:progressDrawable="@drawable/seek_bar_ruler"
-                android:thumb="@drawable/seek_bar_slider"/>
+                android:orientation="vertical"
+                android:paddingTop="@dimen/size_20">
 
-            <TextView
-                android:id="@+id/rangeSliderText"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tv_enterMaxRangePrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="37dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/rangeTextView"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_grey"/>
+
+                <SeekBar
+                    android:id="@+id/rangeSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="3dp"
+                    android:minHeight="3dp"
+                    android:progress="100"
+                    android:layout_weight="1"
+                    android:max="500"
+                    android:progressDrawable="@drawable/seek_bar_ruler"
+                    android:thumb="@drawable/seek_bar_slider"/>
+
+                <TextView
+                    android:id="@+id/rangeSliderText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/black"
+                    android:text="100 km"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/size_20"/>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_20"/>
+
+
+<!--         Select Animal Type-->
+            <LinearLayout
+                android:id="@+id/searchFragment_animalTypeLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@color/black"
-                android:text="100 km"
-                android:textAlignment="center"
-                android:textSize="@dimen/size_20"/>
-        </LinearLayout>
+                android:orientation="vertical">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/size_20"/>
+                <TextView
+                    android:id="@+id/tv_selectAnimalType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="37dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/animal_type"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_grey"/>
 
+<!--                <Space-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="10dp"/>-->
 
-<!--     Select Animal Type-->
-        <LinearLayout
-            android:id="@+id/searchFragment_animalTypeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_selectAnimalType"
-                android:layout_width="wrap_content"
-                android:layout_height="37dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/animal_type"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/dark_grey"/>
-
-<!--            <Space-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="10dp"/>-->
-
-            <org.angmarch.views.NiceSpinner
-                android:id="@+id/animal_type_spinner"
-                android:layout_width="@dimen/size_150"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:entries="@array/animal_type"
-                app:textTint="@color/black"
-                android:layout_gravity="center"
-                android:textSize="@dimen/text_20"
-                android:lines="1"
-                android:textAlignment="center"
-                />
-        </LinearLayout>
+                <org.angmarch.views.NiceSpinner
+                    android:id="@+id/animal_type_spinner"
+                    android:layout_width="@dimen/size_150"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    app:entries="@array/animal_type"
+                    app:textTint="@color/black"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/text_20"
+                    android:lines="1"
+                    android:textAlignment="center"
+                    />
+            </LinearLayout>
 
      Animal Age Spinner
         <LinearLayout
@@ -164,5 +167,6 @@
             android:textAlignment="center"/>
 
     </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

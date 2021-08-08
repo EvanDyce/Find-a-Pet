@@ -1,4 +1,4 @@
-package com.evandyce.pettinder;
+package com.evandyce.findapet;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,13 +16,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.evandyce.pettinder.R;
-import com.evandyce.pettinder.User;
-import com.evandyce.pettinder.Utils;
-import com.evandyce.pettinder.api.APIConnector;
-import com.evandyce.pettinder.MainActivity;
-import com.evandyce.pettinder.cards.Animal;
-import com.evandyce.pettinder.cards.TinderCard;
+import com.evandyce.findapet.cards.Animal;
+import com.evandyce.findapet.cards.TinderCard;
+import com.evandyce.findapet.R;
+import com.evandyce.findapet.api.APIConnector;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 

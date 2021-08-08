@@ -1,4 +1,4 @@
-package com.evandyce.pettinder;
+package com.evandyce.findapet;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,9 +12,7 @@ import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 
-import com.evandyce.pettinder.Login;
-import com.evandyce.pettinder.User;
-import com.evandyce.pettinder.main.fragments.FavoritesFragment;
+import com.evandyce.findapet.main.fragments.FavoritesFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

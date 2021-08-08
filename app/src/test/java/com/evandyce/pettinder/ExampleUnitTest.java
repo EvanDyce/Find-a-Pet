@@ -1,4 +1,4 @@
-package com.evandyce.pettinder;
+package com.evandyce.findapet;
 
 import org.junit.Test;
 

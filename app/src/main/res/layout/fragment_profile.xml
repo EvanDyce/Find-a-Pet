@@ -37,7 +37,7 @@
                     android:id="@+id/profile_profilepic_image"
                     android:layout_width="175dp"
                     android:layout_height="175dp"
-                    android:src="@drawable/rosie_circle"
+                    android:src="@drawable/profile"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
                     app:civ_border_color="@color/white"

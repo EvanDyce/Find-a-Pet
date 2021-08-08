@@ -1,4 +1,4 @@
-package com.evandyce.pettinder.cards;
+package com.evandyce.findapet.cards;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

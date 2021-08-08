@@ -1,4 +1,4 @@
-package com.evandyce.pettinder.api;
+package com.evandyce.findapet.api;
 
 import android.content.Context;
 
