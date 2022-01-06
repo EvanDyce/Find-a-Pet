@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Find-a-Pet</string>
 
-    <string name="GOOGLEAPIKEY">AIzaSyC9kkiauPFKakkxPIY0qz3bk2oXCXs3RXA</string>
+    <string name="GOOGLEAPIKEY">You Wish Buddy</string>
 
     <string name="rangeTextView">Search Radius</string>
     <string name="selectProvincePrompt">Select Province</string>
